@@ -1,4 +1,4 @@
-# Project Name
+# Team 3 - Project Pomodoro
 
 ## Overview
 
@@ -9,3 +9,10 @@ This is our csc-307 project and we are hoping to make a pomodoro. We are using J
 - **Frontend:** JavaScript, React
 - **Code Linter/Formatter:** ESLint, Prettier
 - **Package Manager:** npm/yarn
+
+## Team members
+
+- Thomas
+- Madison
+- Ivy
+- Christina
