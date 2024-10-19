@@ -12,7 +12,7 @@ This is our csc-307 project and we are hoping to make a pomodoro. We are using J
 
 ## Team members
 
-- Thomas
-- Madison
-- Ivy
-- Christina
+- Thomas Le
+- Madison Lopez
+- Ivy Van Zant
+- Christina Dechalk
