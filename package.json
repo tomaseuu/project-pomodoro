@@ -2,6 +2,9 @@
   "name": "project-pomodoro",
   "version": "1.0.0",
   "description": "a csc 307 project - pomodoro",
+  "workspaces": [
+    "packages/*"
+  ],
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
