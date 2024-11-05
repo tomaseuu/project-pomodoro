@@ -19,5 +19,9 @@
     "eslint-config-prettier": "^8.10.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.0.0"
+  },
+  "dependencies": {
+    "mongoose": "^8.8.0",
+    "validator": "^13.12.0"
   }
 }
