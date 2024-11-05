@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Task from "./task";
+import Task from "./task_schema.js";
 const TaskManagerSchema = new mongoose.Schema(
     {
       TaskManagerDate: {
@@ -8,8 +8,7 @@ const TaskManagerSchema = new mongoose.Schema(
         trim: true,
       },
       TasksList: [ Task ]
-    },
-    { collection: "Tasks" }
+    }
 );
 
 const TaskManager = mongoose.model("TaskManager", TaskManagerSchema);

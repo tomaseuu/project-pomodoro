@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-import userModel from "./user";
+import userModel from "./user_schema.js";
 
 mongoose.set("debug", true);
 
@@ -26,6 +26,4 @@ export default {
   addUser,
   getUsers,
   findUserById,
-  findUserByName,
-  findUserByJob,
 };
