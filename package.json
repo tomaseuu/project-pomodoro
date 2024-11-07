@@ -2,10 +2,14 @@
   "name": "project-pomodoro",
   "version": "1.0.0",
   "description": "a csc 307 project - pomodoro",
+  "workspaces": [
+    "packages/*"
+  ],
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "dev": "npm run --workspace=packages/frontend dev"
   },
   "keywords": [],
   "author": "Thomas, Ivy, Madison, Ivy",
