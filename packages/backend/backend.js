@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
   res.send("Hi Everyone!");
 });
 
-app.get("/users", (req, res) => {
+app.get("/users", (req, res) => { 
   const username = req.query.username;
   user_services.getUsers(username)
   .then((result) => {
@@ -39,6 +39,11 @@ app.get("/users", (req, res) => {
   .catch((error) => {
     res.status(404).send("Users Not Found")
   });
+});
+
+app.get("/users/:username/calendar", (req, res) => { 
+  const username = req.query.username;
+  // ... //
 });
 
 app.post("/users", (req, res) => { // 201

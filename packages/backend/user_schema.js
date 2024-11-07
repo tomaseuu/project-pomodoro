@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      unique: true
     },
     email: {
       type: String,
@@ -21,6 +22,10 @@ const UserSchema = new mongoose.Schema(
         trim: true,
         required: 'Password is required',
         validate: [validate.isStrongPassword, 'Please include at least 8 characters, 1 lowercase, 1 uppercase, 1 number, and 1 symbol']
+    },
+    calendar:{
+      type: Map
+      // ... //
     }
   },
   { collection: "users" }
