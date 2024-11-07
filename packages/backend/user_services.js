@@ -12,30 +12,18 @@ mongoose.connect(process.env.MONGODB_URI, {
 }).catch((error) => console.log(error));
 
 
-function getUsers(username, email) {
+function getUsers(username) {
   let promise;
-  if (username === undefined && email === undefined) {
+  if (username === undefined) {
     promise = userModel.find();
-  } else if (username && !email) {
+  } else if (username) {
     promise = findUserByUsername(username);
-  } else if (email && !username) {
-    promise = findUserByEmail(email);
-  }else if (email && username){
-    promise = findUserByUsernameAndEmail(username, email)
-  }  
   return promise;
+  }
 }
 
 function findUserByUsername(username) {
   return userModel.find({ username: username });
-}
-
-function findUserByEmail(email) {
-  return userModel.find({ email: email });
-}
-
-function findUserByUsernameAndEmail(username, email) {
-  return userModel.find({ username: username, email: email })
 }
 
 function findUserById(id) {
@@ -68,9 +56,7 @@ export default {
   addUser,
   getUsers,
   findUserById,
-  findUserByEmail,
   findUserByUsername,
-  findUserByUsernameAndEmail,
   deleteUserById,
   updateUserById
 };
