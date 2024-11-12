@@ -337,3 +337,162 @@ button.send-button {
 button.send-button:hover {
   background-color: #4290a3;
 }
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 80px;
+  padding: 40px;
+  flex-wrap: wrap;
+}
+
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  background-color: #e9724c;
+  border-radius: 20px;
+  width: 500px;
+  font-family: monospace;
+  position: relative;
+}
+
+.timer-guide-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 400px;
+}
+
+.timer-header {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #ffff;
+}
+
+.timer-display {
+  font-size: 150px;
+  margin-bottom: 10px;
+  color: #255f85
+}
+
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  height: 40px;
+}
+
+.timer-controls button {
+  background-color: #50a8c2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.timer-controls button:hover {
+  background-color: #255f85;
+}
+
+.guide-container {
+  background-color: #ffc857;
+  color: #db7347;
+  padding: 10px 90px;
+  border-radius: 15px;
+  text-align: left;
+  font-size: 1em;
+  width: 320px;
+}
+
+.guide-header {
+  font-size: 1.6em;
+  text-align: center;
+}
+
+.todolist-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #50a8c2;
+  width: 500px;
+  height: 630px;
+  align-items: center;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.todolist-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  background-color: #255f85;
+  width: 500px;
+  height: 80px;
+  color:#ffc857;
+}
+
+.add-task-container input {
+  height: 10px;
+  width: 120px;
+  background-color: #fff;
+  border: none;
+}
+
+.add-task-container button {
+  height: 30px;
+  width: 40px;
+  background-color: #255f85;
+  color: #ffc857;
+  border: none;
+  border-radius: 5px;
+}
+
+.add-task-container button:hover {
+  background-color: #db7347;
+  color: #ffff;
+  border: none;
+}
+
+.todo-item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: left;
+  font-size: 20px;
+  color: #ffff;
+  padding: 2px;
+}
+
+.todo-item input[type="checkbox"] {
+  transform: scale(1.5); 
+}
+
+.remove-button {
+  background-color: #255f85;
+  color: #ffc857;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #db7347;
+  color: #ffff;
+}
+
+.profile-icon {
+  width: 50px;
+  height: 50px;
+}
