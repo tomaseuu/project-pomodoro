@@ -18,8 +18,8 @@ function getUsers(username) {
     promise = userModel.find();
   } else if (username) {
     promise = findUserByUsername(username);
-  return promise;
   }
+  return promise;
 }
 
 function findUserByUsername(username) {

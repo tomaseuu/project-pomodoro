@@ -16,3 +16,13 @@ This is our csc-307 project and we are hoping to make a Pomodoro website. We are
 - Madison Lopez
 - Ivy Van Zant
 - Christina Dechalk
+
+## Contributing
+
+**Atlas Format**
+.env : 
+
+MONGODB_URI=mongodb+srv://username:password@host.net/?
+w=majority
+appName= ...
+retryWrites=true
