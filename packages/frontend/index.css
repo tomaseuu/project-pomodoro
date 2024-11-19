@@ -79,6 +79,7 @@ body {
   border: 2px solid var(--cg-orange);
   border-radius: 0px;
   background-color: #ffc857;
+  margin-left: 30px;
 }
 
 .logo-image {
@@ -422,9 +423,11 @@ button.send-button:hover {
   background-color: #50a8c2;
   width: 500px;
   height: 630px;
-  align-items: center;
+  align-items: left;
   border-radius: 20px;
-  text-align: center;
+  text-align: left;
+  overflow-y: auto;
+  overflow-x: auto;
 }
 
 .todolist-header {
@@ -438,12 +441,18 @@ button.send-button:hover {
   color:#ffc857;
 }
 
+.add-task-container {
+  display: sticky;
+  text-align: center;
+}
+
 .add-task-container input {
   height: 10px;
   width: 120px;
   background-color: #fff;
   border: none;
 }
+
 
 .add-task-container button {
   height: 30px;
@@ -464,10 +473,6 @@ button.send-button:hover {
   display: flex;
   flex-direction: row;
   gap: 10px;
-}
-
-.todo-item {
-  display: flex;
   align-items: left;
   font-size: 20px;
   color: #ffff;
@@ -495,4 +500,87 @@ button.send-button:hover {
 .profile-icon {
   width: 50px;
   height: 50px;
+}
+
+.timer-dropdown {
+  width: 300px;
+  height: 50px;
+  background-color: #ffc857;
+  color: #db7347;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+}
+
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #ffc857;
+  border-radius: 15px;
+  padding: 20px;
+  width: 1100px;
+  height: 800px;
+}
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #50a8c2;
+  width: 100%;
+  color: #ffff;
+  position: relative;
+  border-radius: 15px;
+  font-size: 20px;
+  margin-bottom: 50px;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 50px;
+  color: #ffff;
+}
+
+.nav-button:hover {
+  color: #255f85;
+}
+
+.calendar-grid {
+  display: grid;
+  margin-left: 30px;
+  grid-template-columns: repeat(7, 1fr); 
+  gap: 50px; 
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  color: #fff;
+  font-size: 30px;
+}
+
+.calendar-grid div {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #50a8c2;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease
+}
+
+.calendar-grid div:hover {
+  background-color: #255f85;
+}
+
+.calendar-grid .current-date {
+  background-color: #db7347;
+}
+
+.calendar-grid .empty:hover {
+  background-color: #50a8c2; 
 }
