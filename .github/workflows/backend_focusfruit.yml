@@ -35,7 +35,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: node-appb
+          name: node-app
           path: packages/backend/release.zip
 
   deploy:
