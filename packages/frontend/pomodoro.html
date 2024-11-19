@@ -31,6 +31,9 @@
             <ul id="taskList" class="todo-items"></ul>
         </div>
         <div class="timer-guide-column">
+            <div class="day-container">
+              <h2 id="dateDisplayed" class="display-day"></h2>
+            </div>
             <div class="timer-container">
                 <form>
                     <select id="timerOptions" class="timer-dropdown" onchange="changeTimer(this.value)">
@@ -170,6 +173,22 @@
         taskList.appendChild(taskItem);
       });
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const dateDisplayedElement = document.getElementById("dateDisplayed");
+
+      const today = new Date();
+
+      const displayed = today.toLocaleString('default',
+        { month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        }
+      )
+      dateDisplayedElement.textContent = displayed;
+
+    })
 
 </script>
 

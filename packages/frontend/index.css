@@ -408,7 +408,7 @@ button.send-button:hover {
   padding: 10px 90px;
   border-radius: 15px;
   text-align: left;
-  font-size: 1em;
+  font-size: .75em;
   width: 320px;
 }
 
@@ -583,4 +583,23 @@ button.send-button:hover {
 
 .calendar-grid .empty:hover {
   background-color: #50a8c2; 
+}
+
+.day-container {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  background-color: #e9724c;
+  height: 70px;
+  width: 500px;
+  border-radius: 15px;
+}
+
+.display-day {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  color: #ffff;
+  font-size: 25px;
+
 }
