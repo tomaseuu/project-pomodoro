@@ -30,10 +30,16 @@
             </div>
             <ul id="taskList" class="todo-items"></ul>
         </div>
-
         <div class="timer-guide-column">
             <div class="timer-container">
-                <h3 class="timer-header">Timer</h3>
+                <form>
+                    <select id="timerOptions" class="timer-dropdown" onchange="changeTimer(this.value)">
+                        <option value="25">Pomodoro</option>
+                        <option value="5">Short Break</option>
+                        <option value="30">Long Break</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </form>
                 <div id="timerDisplay" class="timer-display">25:00</div>
                 <div class="timer-controls">
                     <button onclick="startTimer()">Start</button>
@@ -90,6 +96,23 @@
       const minutes = String(Math.floor(time / 60)).padStart(2, '0');
       const seconds = String(time % 60).padStart(2, '0');
       document.getElementById("timerDisplay").textContent = `${minutes}:${seconds}`;
+    }
+
+    function changeTimer(value) {
+        stopTimer();
+        if (value == "custom") {
+            const customMinutes = prompt("Enter custom minutes: ");
+
+            if (!isNaN(customMinutes) && customMinutes > 0) {
+                time = customMinutes * 60;
+            } else {
+                alert("Enter a valid number.")
+                return;
+            }
+        } else {
+            time = value * 60;
+        }
+        updateTimerDisplay();
     }
 
     // To-Do List functionality
