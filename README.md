@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is our csc-307 project and we are hoping to make a Pomodoro website. We are using JavaScript/React for the frontend and the following tools to ensure code quality and consistency.
+This is our csc-307 project and we are hoping to make a pomodoro. We are using JavaScript/React for the frontend and the following tools to ensure code quality and consistency.
 
 ## Tech Stack
 
