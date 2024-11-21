@@ -38,6 +38,7 @@
         </div>
         <ul id="taskList" class="todo-items"></ul>
       </div>
+
       <div class="timer-guide-column">
         <div class="timer-container">
           <form>
@@ -59,30 +60,6 @@
             <button onclick="resetTimer()">Reset</button>
           </div>
         </div>
-<<<<<<< HEAD
-=======
-        <div class="timer-guide-column">
-            <div class="day-container">
-              <h2 id="dateDisplayed" class="display-day"></h2>
-            </div>
-            <div class="timer-container">
-                <form>
-                    <select id="timerOptions" class="timer-dropdown" onchange="changeTimer(this.value)">
-                        <option value="25">Pomodoro</option>
-                        <option value="5">Short Break</option>
-                        <option value="30">Long Break</option>
-                        <option value="custom">Custom</option>
-                    </select>
-                </form>
-                <div id="timerDisplay" class="timer-display">25:00</div>
-                <div class="timer-controls">
-                    <button onclick="startTimer()">Start</button>
-                    <button onclick="stopTimer()">Stop</button>
-                    <button onclick="resetTimer()">Reset</button>
-                </div>
-            </div>
->>>>>>> d1697c0926ed1561c75234743b3dcd513d7e6e7f
-
         <div class="guide-container">
           <h3 class="guide-header">Pomodoro Guide</h3>
           <p>→ Set a timer for 25 minutes to focus on a task.</p>
@@ -198,31 +175,9 @@
           removeButton.className = "remove-button";
           removeButton.textContent = "Remove";
           removeButton.onclick = () => removeTask(index);
-
-<<<<<<< HEAD
           taskItem.appendChild(checkbox);
           taskItem.appendChild(taskText);
           taskItem.appendChild(removeButton);
-=======
-    document.addEventListener('DOMContentLoaded', () => {
-
-      const dateDisplayedElement = document.getElementById("dateDisplayed");
-
-      const today = new Date();
-
-      const displayed = today.toLocaleString('default',
-        { month: 'long',
-          day: 'numeric',
-          year: 'numeric'
-        }
-      )
-      dateDisplayedElement.textContent = displayed;
-
-    })
-
-</script>
->>>>>>> d1697c0926ed1561c75234743b3dcd513d7e6e7f
-
           taskList.appendChild(taskItem);
         });
       }
