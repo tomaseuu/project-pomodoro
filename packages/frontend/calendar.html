@@ -1,106 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <title>FocusFruitCalendar</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
-</head>
-<body class="calendar-page">
+  </head>
+  <body class="calendar-page">
     <nav class="navbar">
-        <a href="index.html" class="logo-link">
-            <div class="logo-container">
-                <img src="focus-fruit-logo.png" alt="Focus-Fruit Logo" class="logo-image" />
-                <span class="logo-text">FocusFruit</span>
-            </div>
-        </a>
-        <ul class="nav-list">
-            <li><a href="pomodoro.html">Home</a></li>
-            <li><a href="calendar.html">Calendar</a></li>
-            <li><a href="profile.html"><img src="user-logo.png" alt="Profile" class="profile-icon"></a></li>
-        </ul>
+      <a href="index.html" class="logo-link">
+        <div class="logo-container">
+          <img
+            src="focus-fruit-logo.png"
+            alt="Focus-Fruit Logo"
+            class="logo-image"
+          />
+          <span class="logo-text">FocusFruit</span>
+        </div>
+      </a>
+      <ul class="nav-list">
+        <li><a href="pomodoro.html">Home</a></li>
+        <li><a href="calendar.html">Calendar</a></li>
+        <li>
+          <a href="profile.html"
+            ><img src="user-logo.png" alt="Profile" class="profile-icon"
+          /></a>
+        </li>
+      </ul>
     </nav>
 
     <main class="main-content">
-        <div class="calendar-container">
-            <div class="calendar-header">
-                <button id="prevMonth" class="nav-button">&lt;</button>
-                <h2 id="monthYear" class="month-header"></h2>
-                <button id="nextMonth" class="nav-button">&gt;</button>
-            </div>
-            <div id="calendar" class="calendar-grid"></div>
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <button id="prevMonth" class="nav-button">&lt;</button>
+          <h2 id="monthYear" class="month-header"></h2>
+          <button id="nextMonth" class="nav-button">&gt;</button>
         </div>
+        <div id="calendar" class="calendar-grid"></div>
+      </div>
     </main>
-    
-<script>
 
-    let currentMonth = new Date().getMonth();
-    let currentYear = new Date().getFullYear();
+    <script>
+      let currentMonth = new Date().getMonth();
+      let currentYear = new Date().getFullYear();
 
-    function renderCalendar(month, year) {
+      function renderCalendar(month, year) {
+        const calendar = document.getElementById("calendar");
+        const monthYearHeader = document.getElementById("monthYear");
 
-        const calendar = document.getElementById('calendar');
-        const monthYearHeader = document.getElementById('monthYear');
+        calendar.innerHTML = "";
 
-        calendar.innerHTML = '';
-
-        const monthName = new Date(year, month).toLocaleString('default', {month: 'long'});
+        const monthName = new Date(year, month).toLocaleString("default", {
+          month: "long",
+        });
         monthYearHeader.textContent = `${monthName} ${year}`;
 
         const firstDays = new Date(year, month, 1).getDay();
         const totalDays = new Date(year, month + 1, 0).getDate();
 
         //days before first day (empty)
-        for (let i = 0 ; i < firstDays ; i++) {
-            const emptyCell = document.createElement('div');
-            emptyCell.classList.add('empty');
-            calendar.appendChild(emptyCell);
+        for (let i = 0; i < firstDays; i++) {
+          const emptyCell = document.createElement("div");
+          emptyCell.classList.add("empty");
+          calendar.appendChild(emptyCell);
         }
 
         //add days of month
-        for (let day = 1 ; day <= totalDays ; day++) {
-            const dayDiv =  document.createElement('div');
-            dayDiv.textContent = day;
+        for (let day = 1; day <= totalDays; day++) {
+          const dayDiv = document.createElement("div");
+          dayDiv.textContent = day;
 
-            //todays date
-            const today = new Date();
-            if (
-                day === today.getDate() &&
-                month === today.getMonth() &&
-                year === today.getFullYear()
-            ) {
-                dayDiv.classList.add('current-date');
-            }
+          //todays date
+          const today = new Date();
+          if (
+            day === today.getDate() &&
+            month === today.getMonth() &&
+            year === today.getFullYear()
+          ) {
+            dayDiv.classList.add("current-date");
+          }
 
-            calendar.appendChild(dayDiv);
+          calendar.appendChild(dayDiv);
         }
-    }
+      }
 
-    //left nav button
-    document.getElementById('prevMonth').addEventListener('click', () => {
+      //left nav button
+      document.getElementById("prevMonth").addEventListener("click", () => {
         currentMonth--;
         if (currentMonth < 0) {
-            currentMonth = 11;
-            currentYear--;
+          currentMonth = 11;
+          currentYear--;
         }
         renderCalendar(currentMonth, currentYear);
-    })
+      });
 
-    //right nav button
-    document.getElementById('nextMonth').addEventListener('click', () => {
+      //right nav button
+      document.getElementById("nextMonth").addEventListener("click", () => {
         currentMonth++;
         if (currentMonth > 11) {
-            currentMonth = 0;
-            currentYear++;
+          currentMonth = 0;
+          currentYear++;
         }
         renderCalendar(currentMonth, currentYear);
-    });
+      });
 
-    renderCalendar(currentMonth, currentYear);
-
-   
-</script>
-
-</body>
+      renderCalendar(currentMonth, currentYear);
+    </script>
+  </body>
+  <footer class="footer">
+    <p>
+      <a href="contact.html">contact us</a>
+    </p>
+  </footer>
 </html>
