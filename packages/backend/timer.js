@@ -1,11 +1,13 @@
 // timer.js
 
 import express from 'express';
+import cors from 'cors';
 import { startTimer, stopTimer, getTotalElapsedTime } from './timer-services.js';
+
 const app = express();
 const port = 3000;
 
-
+app.use(cors());
 app.use(express.json());
 
 
@@ -15,16 +17,21 @@ app.get('/', (req, res) => {
 
 // Route to start a new timer
 app.post('/start', (req, res) => {
+
+    console.log("POST /start called with body: ", req.body); //debug
+
     const { userId, timerId } = req.body;
     if (!userId || !timerId) {
-        return res.status(400).json({ message: 'UserId and TimerId are required' });
+        console.error("missing userId or timerId"); //debug
+        return res.status(400).json({ success: false, message: 'UserId and TimerId are required' });
     }
 
     const result = startTimer(userId, timerId);
     if (result.success) {
-        return res.status(200).json({ message: result.message });
+        console.log("result: ", result); //debug
+        return res.status(200).json(result);
     } else {
-        return res.status(400).json({ message: result.message });
+        return res.status(400).json(result);
     }
 });
 
@@ -37,12 +44,9 @@ app.post('/stop', (req, res) => {
 
     const result = stopTimer(userId, timerId);
     if (result.success) {
-        return res.status(200).json({
-            message: result.message,
-            totalElapsedTime: result.totalElapsedTime
-        });
+        return res.status(200).json(result);
     } else {
-        return res.status(400).json({ message: result.message });
+        return res.status(400).json(result);
     }
 });
 
@@ -52,9 +56,9 @@ app.get('/total/:userId/:timerId', (req, res) => {
     const result = getTotalElapsedTime(userId, timerId);
 
     if (result.success) {
-        return res.status(200).json({ totalElapsedTime: result.totalElapsedTime });
+        return res.status(200).json(result);
     } else {
-        return res.status(404).json({ message: result.message });
+        return res.status(404).json({ success: false, message: "Timer not found" });
     }
 });
 

@@ -1,5 +1,13 @@
+//timer-services.js
 
-let userTimers = {};
+let userTimers = {
+    user123: {
+        pomodoro: {
+            startTime: null, // No active timer
+            totalElapsedTime: 0 // Initial elapsed time
+        }
+    }
+};
 
 const getCurrentTimestamp = () => new Date().getTime();
 
@@ -30,12 +38,12 @@ const stopTimer = (userId, timerId) => {
     if (timer && timer.startTime) {
         const elapsedTime = getCurrentTimestamp() - timer.startTime;
         timer.totalElapsedTime += elapsedTime; // Add to cumulative total
-        delete timer.startTime; // Reset start time to allow future start
+        timer.startTime = null; // Reset start time to allow future start
 
         return {
             success: true,
             message: `Timer ${timerId} stopped for user ${userId}`,
-            totalElapsedTime: (timer.totalElapsedTime / (1000 * 60 * 60)).toFixed(2) // Convert to hours
+            totalElapsedTime: (timer.totalElapsedTime / (1000)).toFixed(2) // return seconds
         };
     } else {
         return { success: false, message: `No active timer ${timerId} for user ${userId}` };
@@ -47,7 +55,7 @@ const getTotalElapsedTime = (userId, timerId) => {
     if (timer) {
         return {
             success: true,
-            totalElapsedTime: (timer.totalElapsedTime / (1000 * 60 * 60)).toFixed(2) // Convert to hours
+            totalElapsedTime: (timer.totalElapsedTime / (1000)).toFixed(2) // return seconds
         };
     } else {
         return { success: false, message: `No timer ${timerId} found for user ${userId}` };

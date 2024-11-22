@@ -5,7 +5,7 @@ import user_services from "./user_services.js";
 import { registerUser, authenticateUser } from "./auth.js";
 
 const app = express();
-const port = 8000;
+const port = 3000;
 
 app.use(cors());
 app.use(express.json());
