@@ -58,7 +58,7 @@
           </form>
           <div id="timerDisplay" class="timer-display">25:00</div>
           <div class="timer-controls">
-            <button onclick="startTimer()">Start</button>
+            <button id="startButton" onclick="startTimer()">Start</button>
             <button onclick="stopTimer()">Stop</button>
             <button onclick="resetTimer()">Reset</button>
           </div>
@@ -75,30 +75,87 @@
     </main>
 
     <script>
-      // Timer functionality
+
+    
+      //frontend functionality
       let time = 1500;
       let isRunning = false;
       let timerInterval;
 
       function startTimer() {
+        console.log("Start button clicked");
         if (!isRunning) {
           isRunning = true;
-          timerInterval = setInterval(() => {
-            if (time > 0) {
-              time--;
-              updateTimerDisplay();
-            } else {
-              stopTimer();
-              alert("Time's up!");
-            }
-          }, 1000);
+          
+          fetch("http://localhost:3000/start", {
+            method: "POST",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({userId: "user123", timerId: "pomodoro"}),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                console.log(data.message);
+                timerInterval = setInterval(() => {
+                  if (time > 0) {
+                    time--;
+                    updateTimerDisplay();
+                  } else {
+                    stopTimer();
+                    alert("Time's up!");
+                  }
+                }, 1000);
+
+              } else {
+                console.error("Error: ", data.message);
+              }
+          })
+          .catch((error) => console.error("Error communicating with backend: ", error));
         }
       }
 
       function stopTimer() {
-        isRunning = false;
-        clearInterval(timerInterval);
+        if (isRunning) {
+          isRunning = false;
+          clearInterval(timerInterval);
+        }
+
+        fetch("http://localhost:3000/stop", {
+          method: "POST",
+          headers: {"Content-Type" : "application/json"},
+          body: JSON.stringify({userId: "user123", timerId: "pomodoro"}),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              console.log(data.message);
+              console.log(`Total elapsed time: ${data.totalElapsedTime} hours`);
+            } else {
+              console.error("Error stopping timer: ", data.message);
+            }
+          })
+          .catch((error) => console.error("Error communicating with backend: ", error));
       }
+
+//       function fetchElapsedTime() {
+//         fetch("http://localhost:3000/total/user123/pomodoro")
+//           .then((response) => response.json())
+//           .then((data) => {
+//             if (data.success) {
+//               console.log(`Total elapsed time: ${data.totalElapsedTime} hours`);
+//               const elapsedSeconds = Math.floor(data.totalElapsedTime * 60 * 60);
+//               time = Math.max(1500 - elapsedSeconds, 0); 
+//               updateTimerDisplay();
+//             } else {
+//               console.error("Error fetching elapsed time:", data.message);
+//             }
+//           })
+//           .catch((error) => console.error("Error communicating with backend: ", error));
+//       }
+//       document.addEventListener("DOMContentLoaded", () => {
+//         fetchElapsedTime();
+//       document.getElementById("startButton").addEventListener("click", startTimer);
+// });
 
       function resetTimer() {
         stopTimer();

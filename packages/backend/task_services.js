@@ -9,14 +9,14 @@ mongoose.connect("mongodb://localhost:27017/users", {
     useUnifiedTopology: true,
 }).catch((error) => console.log(error));
 
-// function getTask(userId, ) {
-//   let promise;
-//   if (task === undefined) {
-//     promise = userModel.find();
-//   } else if (task) {
-//     promise = findTaskbyUser(username);
-// }
-
+function getTask(userId, ) {
+  let promise;
+  if (task === undefined) {
+    promise = userModel.find();
+  } else if (task) {
+    promise = findTaskbyUser(username);
+}
+}
 
 export default {
   addTask,
