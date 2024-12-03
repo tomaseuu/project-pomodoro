@@ -1,5 +1,5 @@
 //timer-schema.js
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const timerSchema = new mongoose.Schema({
   userId: { type: String, required: true },
