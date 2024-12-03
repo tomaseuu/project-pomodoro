@@ -311,16 +311,6 @@
         dateDisplayedElement.textContent = displayed;
       });
       
-      document.addEventListener("DOMContentLoaded", () => {
-        const dateDisplayedElement = document.getElementById("dateDisplayed");
-        const today = new Date();
-        const displayed = today.toLocaleString("default", {
-          month: "long",
-          day: "numeric",
-          year: "numeric",
-        });
-        dateDisplayedElement.textContent = displayed;
-      });
     </script>
   </body>
 
