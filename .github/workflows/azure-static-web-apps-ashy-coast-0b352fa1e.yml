@@ -23,9 +23,13 @@ jobs:
           lfs: false
 
       # Fix permissions
-      - name: Fix permissions
-        run: sudo chown -R $USER:$USER /home/runner/work/project-pomodoro/
-
+      - name: Fix npm permissions
+        run: |
+          mkdir -p ~/.npm-global
+          npm config set prefix '~/.npm-global'
+          export PATH=~/.npm-global/bin:$PATH
+          echo "export PATH=~/.npm-global/bin:$PATH" >> $GITHUB_ENV
+          
       # Set npm cache directory
       - name: Set npm cache directory
         run: npm config set cache /home/runner/.npm-cache --global
