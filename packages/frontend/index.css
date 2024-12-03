@@ -530,9 +530,9 @@ button.send-button:hover {
   justify-content: flex-start;
   background-color: #ffc857;
   border-radius: 15px;
-  padding: 20px;
   width: 1100px;
-  height: 800px;
+  height: 700px;
+  margin: 50px;
 }
 .calendar-header {
   display: flex;
