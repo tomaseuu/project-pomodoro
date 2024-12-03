@@ -3,15 +3,7 @@
   "version": "1.0.0",
   "description": "a csc 307 project - pomodoro",
   "jest": {
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    },
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "jsx",
-      "node"
-    ]
+    "testEnvironment": "node"
   },
   "workspaces": [
     "packages/*"
@@ -29,6 +21,7 @@
     "format": "prettier --write .",
     "build:frontend": "npm run -w packages/frontend build"
   },
+
   "keywords": [],
   "author": "Thomas, Ivy, Madison, Christina",
   "license": "ISC",
