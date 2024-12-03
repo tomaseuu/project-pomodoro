@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
   </head>
+
   <body class="pomodoro-page">
     <nav class="navbar">
       <a href="index.html" class="logo-link">
@@ -75,150 +76,172 @@
     </main>
 
     <script>
+      //frontend functionality
+      let time = 1500;
+      let isRunning = false;
+      let timerInterval;
 
-    //frontend functionality
-    let time = 1500;
-    let isRunning = false;
-    let timerInterval;
+      function startTimer() {
+        console.log("Start button clicked");
+        if (!isRunning) {
+          isRunning = true;
 
-    function startTimer() {
-      console.log("Start button clicked");
-      if (!isRunning) {
-        isRunning = true;
-        
-        fetch("http://localhost:3000/start", {
+          fetch("http://localhost:3000/start", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId: "user123", timerId: "pomodoro" }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                console.log(data.message);
+                timerInterval = setInterval(() => {
+                  if (time > 0) {
+                    time--;
+                    updateTimerDisplay();
+                  } else {
+                    stopTimer();
+                    playAudio(); // Play the audio here
+                    alert("Time's up!");
+                  }
+                }, 1000);
+              } else {
+                console.error("Error: ", data.message);
+              }
+            })
+            .catch((error) =>
+              console.error("Error communicating with backend: ", error)
+            );
+        }
+      }
+
+      function playAudio() {
+        const audio = document.getElementById("timerEndAudio");
+        audio.play();
+
+        // Stop the audio after 10 seconds
+        setTimeout(() => {
+          audio.pause();
+          audio.currentTime = 0; // Reset audio to the start
+        }, 10000); 
+      }
+
+      function stopTimer() {
+        if (isRunning) {
+          isRunning = false;
+          clearInterval(timerInterval);
+        }
+
+        fetch("http://localhost:3000/stop", {
           method: "POST",
-          headers: {"Content-Type" : "application/json"},
-          body: JSON.stringify({userId: "user123", timerId: "pomodoro"}),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: "user123", timerId: "pomodoro" }),
         })
           .then((response) => response.json())
           .then((data) => {
             if (data.success) {
               console.log(data.message);
-              timerInterval = setInterval(() => {
-                if (time > 0) {
-                  time--;
-                  updateTimerDisplay();
-                } else {
-                  stopTimer();
-                  alert("Time's up!");
-                }
-              }, 1000);
-
+              console.log(
+                `Total elapsed time: ${data.totalElapsedTime} seconds`
+              );
             } else {
-              console.error("Error: ", data.message);
+              console.error("Error stopping timer: ", data.message);
             }
-        })
-        .catch((error) => console.error("Error communicating with backend: ", error));
-      }
-    }
-
-    function stopTimer() {
-      if (isRunning) {
-        isRunning = false;
-        clearInterval(timerInterval);
+          })
+          .catch((error) =>
+            console.error("Error communicating with backend: ", error)
+          );
       }
 
-      fetch("http://localhost:3000/stop", {
-        method: "POST",
-        headers: {"Content-Type" : "application/json"},
-        body: JSON.stringify({userId: "user123", timerId: "pomodoro"}),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            console.log(data.message);
-            console.log(`Total elapsed time: ${data.totalElapsedTime} seconds`);
-          } else {
-            console.error("Error stopping timer: ", data.message);
-          }
-        })
-        .catch((error) => console.error("Error communicating with backend: ", error));
-    }
-
-    function fetchElapsedTime() {
-      fetch(`http://localhost:3000/total/${userId}/${timerId}`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            console.log(`Total elapsed time: ${data.totalElapsedTime} seconds`);
-            const elapsedSeconds = Math.floor(data.totalElapsedTime * 60 * 60);
-            if (elapsedSeconds >= 1500 || elapsedSeconds === 0) {
-                  time = 1500; // Default to 25 minutes
+      function fetchElapsedTime() {
+        fetch(`http://localhost:3000/total/${userId}/${timerId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              console.log(
+                `Total elapsed time: ${data.totalElapsedTime} seconds`
+              );
+              const elapsedSeconds = Math.floor(
+                data.totalElapsedTime * 60 * 60
+              );
+              if (elapsedSeconds >= 1500 || elapsedSeconds === 0) {
+                time = 1500; // Default to 25 minutes
               } else {
-                time = Math.max(1500 - elapsedSeconds, 0); 
+                time = Math.max(1500 - elapsedSeconds, 0);
               }
-            updateTimerDisplay();
-          } else {
-            console.error("Error fetching elapsed time:", data.message);
-          }
-        })
-        .catch((error) => console.error("Error communicating with backend: ", error));
-    }
+              updateTimerDisplay();
+            } else {
+              console.error("Error fetching elapsed time:", data.message);
+            }
+          })
+          .catch((error) =>
+            console.error("Error communicating with backend: ", error)
+          );
+      }
 
-    function resetTimer() {
-      stopTimer();
-      time = 1500;
-      updateTimerDisplay();
-    }
-
-    function resetTotalElapsedTime () {
-
-      fetch("http://localhost:3000/resetElapsed", {
-        method: "POST",
-        headers: {"Content-Type" : "application/json"},
-        body: JSON.stringify({userId: "user123", timerId: "pomodoro"}),
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          console.log(data.message);
-          time = 1500;
-          updateTimerDisplay();
-        } else {
-          console.error("Error resetting elapsed time: ", data.message);
-        }
-      })
-      .catch((error) => console.error("Error communicating with backend: ", error));
-    }
-
-    function updateTimerDisplay() {
-      const minutes = String(Math.floor(time / 60)).padStart(2, "0");
-      const seconds = String(time % 60).padStart(2, "0");
-      document.getElementById(
-        "timerDisplay"
-      ).textContent = `${minutes}:${seconds}`;
-
-      localStorage.setItem("remainingTime", time);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const savedTime = localStorage.getItem("remainingTime");
-      if (savedTime) {
-        time = parseInt(savedTime, 10);
-      } else {
+      function resetTimer() {
+        stopTimer();
         time = 1500;
+        updateTimerDisplay();
       }
-      updateTimerDisplay();
-    })
 
-    function changeTimer(value) {
-      stopTimer();
-      if (value == "custom") {
-        const customMinutes = prompt("Enter custom minutes: ");
+      function resetTotalElapsedTime() {
+        fetch("http://localhost:3000/resetElapsed", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: "user123", timerId: "pomodoro" }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              console.log(data.message);
+              time = 1500;
+              updateTimerDisplay();
+            } else {
+              console.error("Error resetting elapsed time: ", data.message);
+            }
+          })
+          .catch((error) =>
+            console.error("Error communicating with backend: ", error)
+          );
+      }
 
-        if (!isNaN(customMinutes) && customMinutes > 0) {
-          time = customMinutes * 60;
+      function updateTimerDisplay() {
+        const minutes = String(Math.floor(time / 60)).padStart(2, "0");
+        const seconds = String(time % 60).padStart(2, "0");
+        document.getElementById(
+          "timerDisplay"
+        ).textContent = `${minutes}:${seconds}`;
+
+        localStorage.setItem("remainingTime", time);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedTime = localStorage.getItem("remainingTime");
+        if (savedTime) {
+          time = parseInt(savedTime, 10);
         } else {
-          alert("Enter a valid number.");
-          return;
+          time = 1500;
         }
-      } else {
-        time = value * 60;
-      }
-      updateTimerDisplay();
-    } 
+        updateTimerDisplay();
+      });
 
+      function changeTimer(value) {
+        stopTimer();
+        if (value == "custom") {
+          const customMinutes = prompt("Enter custom minutes: ");
+
+          if (!isNaN(customMinutes) && customMinutes > 0) {
+            time = customMinutes * 60;
+          } else {
+            alert("Enter a valid number.");
+            return;
+          }
+        } else {
+          time = value * 60;
+        }
+        updateTimerDisplay();
+      }
 
       // To-Do List functionality
       const apiUrl = "http://localhost:3001/tasks";
@@ -238,11 +261,9 @@
           if (result.success) {
             console.log("result of fetch: ", result);
             renderTasks(result.tasks);
-          
           } else {
             console.error(result.message);
           }
-        
         } catch (error) {
           console.error("Error fetching task: ", error);
         }
@@ -256,7 +277,7 @@
           try {
             const response = await fetch(apiUrl, {
               method: "POST",
-              headers: {"Content-Type" : "application/json"},
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ userId, task: taskText }),
             });
 
@@ -269,7 +290,6 @@
             } else {
               console.error(result.message);
             }
-          
           } catch (error) {
             console.error("Error adding task: ", error);
           }
@@ -280,25 +300,23 @@
         try {
           const response = await fetch(`${apiUrl}/${taskId}/toggle`, {
             method: "POST",
-            headers: {"Content-Type" : "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userId }),
           });
-          
-          if (!response.ok) throw new Error("Failed to toggle task completion.");
+
+          if (!response.ok)
+            throw new Error("Failed to toggle task completion.");
           const result = await response.json();
 
           if (result.success) {
-            fetchTasks(); 
-         
+            fetchTasks();
           } else {
-          console.error(result.message);
+            console.error(result.message);
           }
-          
         } catch (error) {
           console.error("Error toggling task completion:", error);
         }
       }
-
 
       async function removeTask(taskId) {
         try {
@@ -306,8 +324,11 @@
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userId }),
-          }); 
-          console.log("removeTask fetch link: ", `${apiUrl}/${taskId}?userId=${userId}`);
+          });
+          console.log(
+            "removeTask fetch link: ",
+            `${apiUrl}/${taskId}?userId=${userId}`
+          );
           console.log("removeTask response: ", response);
 
           if (!response.ok) throw new Error("Failed to remove task");
@@ -315,11 +336,9 @@
 
           if (result.success) {
             fetchTasks();
-          
           } else {
             console.error(result.message);
           }
-        
         } catch (error) {
           console.error("Error removing task: ", error);
         }
@@ -329,7 +348,7 @@
         console.log("rendering tasks: ", tasks);
         const taskList = document.getElementById("taskList");
         taskList.innerHTML = "";
-        
+
         tasks.forEach((task) => {
           console.log("task: ", task);
           const taskItem = document.createElement("p");
@@ -348,7 +367,7 @@
           removeButton.className = "remove-button";
           removeButton.textContent = "Remove";
           removeButton.onclick = () => removeTask(task._id);
-          
+
           taskItem.appendChild(checkbox);
           taskItem.appendChild(taskText);
           taskItem.appendChild(removeButton);
@@ -357,21 +376,20 @@
       }
 
       //display date on pomodoro page
-      document.addEventListener('DOMContentLoaded', () => {
-      const dateDisplayedElement = document.getElementById("dateDisplayed");
-      const today = new Date();
-      const displayed = today.toLocaleString('default',
-        { month: 'long',
-          day: 'numeric',
-          year: 'numeric'
+      document.addEventListener("DOMContentLoaded", () => {
+        const dateDisplayedElement = document.getElementById("dateDisplayed");
+        const today = new Date();
+        const displayed = today.toLocaleString("default", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
         });
-      dateDisplayedElement.textContent = displayed;
-      fetchTasks();
-    });
-      
+        dateDisplayedElement.textContent = displayed;
+        fetchTasks();
+      });
     </script>
   </body>
-
+  <audio id="timerEndAudio" src="timer-end-sound.mp3" preload="auto"></audio>
   <footer class="footer">
     <p>
       <a href="contact.html">contact us</a>
