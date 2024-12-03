@@ -78,8 +78,10 @@
     <script>
       //frontend functionality
       let time = 1500;
+      let defaultTime = 1500;
       let isRunning = false;
       let timerInterval;
+      let previousCustomTime = null;
 
       function startTimer() {
         console.log("Start button clicked");
@@ -101,7 +103,8 @@
                     updateTimerDisplay();
                   } else {
                     stopTimer();
-                    playAudio(); // Play the audio here
+                    playAudio();
+                    previousCustomTime();
                     alert("Time's up!");
                   }
                 }, 1000);
@@ -119,11 +122,10 @@
         const audio = document.getElementById("timerEndAudio");
         audio.play();
 
-        // Stop the audio after 10 seconds
         setTimeout(() => {
           audio.pause();
-          audio.currentTime = 0; // Reset audio to the start
-        }, 10000); 
+          audio.currentTime = 0;
+        }, 20000);
       }
 
       function stopTimer() {
@@ -165,7 +167,7 @@
                 data.totalElapsedTime * 60 * 60
               );
               if (elapsedSeconds >= 1500 || elapsedSeconds === 0) {
-                time = 1500; // Default to 25 minutes
+                time = 1500;
               } else {
                 time = Math.max(1500 - elapsedSeconds, 0);
               }
@@ -181,7 +183,18 @@
 
       function resetTimer() {
         stopTimer();
-        time = 1500;
+        if (defaultTime === "custom") {
+          const resetPrompt = confirm(
+            "Would you like to enter a new custom timer value?"
+          );
+          if (resetPrompt) {
+            changeTimer("custom");
+          } else {
+            time = previousCustomTime;
+          }
+        } else {
+          time = defaultTime;
+        }
         updateTimerDisplay();
       }
 
@@ -228,17 +241,30 @@
 
       function changeTimer(value) {
         stopTimer();
-        if (value == "custom") {
-          const customMinutes = prompt("Enter custom minutes: ");
+        if (value === "custom") {
+          let customMinutes;
+          do {
+            customMinutes = prompt("Enter custom minutes (1–300): ");
+            if (customMinutes === null) {
+              alert("You must enter a custom time. Please try again.");
+            } else if (
+              isNaN(customMinutes) ||
+              customMinutes <= 0 ||
+              customMinutes > 300
+            ) {
+              alert(
+                "Invalid input. Please enter a number between 1 and 300 minutes."
+              );
+              customMinutes = null;
+            }
+          } while (customMinutes === null);
 
-          if (!isNaN(customMinutes) && customMinutes > 0) {
-            time = customMinutes * 60;
-          } else {
-            alert("Enter a valid number.");
-            return;
-          }
+          time = customMinutes * 60;
+          previousCustomTime = time;
+          defaultTime = "custom";
         } else {
           time = value * 60;
+          defaultTime = time;
         }
         updateTimerDisplay();
       }
