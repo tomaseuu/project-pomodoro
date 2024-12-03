@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const Task = require("./task_schema");
+const Task = require("./task-schema");
 let mongoServer;
 
 beforeAll(async () => {
