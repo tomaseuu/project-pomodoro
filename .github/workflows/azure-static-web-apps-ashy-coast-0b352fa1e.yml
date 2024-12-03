@@ -14,53 +14,57 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action == 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+
     steps:
+      # Checkout repository
       - uses: actions/checkout@v3
         with:
           submodules: true
           lfs: false
-      
-      - name: Fix permissions
-        run: sudo chown -R $USER:$USER /home/runner/work/project-pomodoro/
-  
+
+      # Fix permissions
+      - name: Fix npm permissions
+        run: |
+          mkdir -p ~/.npm-global
+          npm config set prefix '~/.npm-global'
+          export PATH=~/.npm-global/bin:$PATH
+          echo "export PATH=~/.npm-global/bin:$PATH" >> $GITHUB_ENV
+          
+      # Set npm cache directory
       - name: Set npm cache directory
         run: npm config set cache /home/runner/.npm-cache --global
-  
-      - name: npm install, build, and test
-        run: |
-            npm install
-            npm run build
-        working-directory: packages/frontend
 
-      - name: Build And Deploy
-        id: builddeploy
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ASHY_COAST_0B352FA1E }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
-          action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "./packages/frontend" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "dist" # Built app content directory - optional
-          ###### End of Repository/Build Configurations ######
-
-      - name: npm install, build, and test
+      # Install dependencies and build the frontend
+      - name: Install and Build Frontend
         run: |
           npm install
           npm run build
         working-directory: packages/frontend
 
+      # Archive the build output for deployment
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
-        working-directory: packages/frontend/build
+        run: zip -r release.zip ./*
+        working-directory: packages/frontend/dist
+
+      # Deploy to Azure Static Web Apps
+      - name: Deploy to Azure Static Web Apps
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ASHY_COAST_0B352FA1E }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for GitHub integrations (e.g., PR comments)
+          action: "upload"
+          app_location: "./packages/frontend"
+          api_location: ""
+          output_location: "dist"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close Pull Request Job
+
     steps:
+      # Close pull request in Azure Static Web Apps
       - name: Close Pull Request
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
