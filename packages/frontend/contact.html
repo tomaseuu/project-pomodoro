@@ -36,14 +36,16 @@
 
       <div class="contact-form">
         <form id="contact-form">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required />
+          <div class="email-container">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
 
           <label for="message">Message:</label>
           <div class="message-container">
             <textarea id="message" name="message" rows="6" required></textarea>
-            <button type="submit" class="send-button">Send</button>
           </div>
+          <button type="submit" class="send-button">Send</button>
         </form>
       </div>
     </main>

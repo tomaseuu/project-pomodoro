@@ -75,8 +75,6 @@
     </main>
 
     <script>
-
-    
       //frontend functionality
       let time = 1500;
       let isRunning = false;
@@ -86,11 +84,11 @@
         console.log("Start button clicked");
         if (!isRunning) {
           isRunning = true;
-          
+
           fetch("http://localhost:3000/start", {
             method: "POST",
-            headers: {"Content-Type" : "application/json"},
-            body: JSON.stringify({userId: "user123", timerId: "pomodoro"}),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId: "user123", timerId: "pomodoro" }),
           })
             .then((response) => response.json())
             .then((data) => {
@@ -105,12 +103,13 @@
                     alert("Time's up!");
                   }
                 }, 1000);
-
               } else {
                 console.error("Error: ", data.message);
               }
-          })
-          .catch((error) => console.error("Error communicating with backend: ", error));
+            })
+            .catch((error) =>
+              console.error("Error communicating with backend: ", error)
+            );
         }
       }
 
@@ -122,19 +121,23 @@
 
         fetch("http://localhost:3000/stop", {
           method: "POST",
-          headers: {"Content-Type" : "application/json"},
-          body: JSON.stringify({userId: "user123", timerId: "pomodoro"}),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: "user123", timerId: "pomodoro" }),
         })
           .then((response) => response.json())
           .then((data) => {
             if (data.success) {
               console.log(data.message);
-              console.log(`Total elapsed time: ${data.totalElapsedTime} seconds`);
+              console.log(
+                `Total elapsed time: ${data.totalElapsedTime} seconds`
+              );
             } else {
               console.error("Error stopping timer: ", data.message);
             }
           })
-          .catch((error) => console.error("Error communicating with backend: ", error));
+          .catch((error) =>
+            console.error("Error communicating with backend: ", error)
+          );
       }
 
       function fetchElapsedTime() {
@@ -142,19 +145,25 @@
           .then((response) => response.json())
           .then((data) => {
             if (data.success) {
-              console.log(`Total elapsed time: ${data.totalElapsedTime} seconds`);
-              const elapsedSeconds = Math.floor(data.totalElapsedTime * 60 * 60);
+              console.log(
+                `Total elapsed time: ${data.totalElapsedTime} seconds`
+              );
+              const elapsedSeconds = Math.floor(
+                data.totalElapsedTime * 60 * 60
+              );
               if (elapsedSeconds >= 1500 || elapsedSeconds === 0) {
-                    time = 1500; // Default to 25 minutes
-                } else {
-                  time = Math.max(1500 - elapsedSeconds, 0); 
-                }
+                time = 1500; // Default to 25 minutes
+              } else {
+                time = Math.max(1500 - elapsedSeconds, 0);
+              }
               updateTimerDisplay();
             } else {
               console.error("Error fetching elapsed time:", data.message);
             }
           })
-          .catch((error) => console.error("Error communicating with backend: ", error));
+          .catch((error) =>
+            console.error("Error communicating with backend: ", error)
+          );
       }
 
       function resetTimer() {
@@ -163,24 +172,25 @@
         updateTimerDisplay();
       }
 
-      function resetTotalElapsedTime () {
-
+      function resetTotalElapsedTime() {
         fetch("http://localhost:3000/resetElapsed", {
           method: "POST",
-          headers: {"Content-Type" : "application/json"},
-          body: JSON.stringify({userId: "user123", timerId: "pomodoro"}),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: "user123", timerId: "pomodoro" }),
         })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            console.log(data.message);
-            time = 1500;
-            updateTimerDisplay();
-          } else {
-            console.error("Error resetting elapsed time: ", data.message);
-          }
-        })
-        .catch((error) => console.error("Error communicating with backend: ", error));
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              console.log(data.message);
+              time = 1500;
+              updateTimerDisplay();
+            } else {
+              console.error("Error resetting elapsed time: ", data.message);
+            }
+          })
+          .catch((error) =>
+            console.error("Error communicating with backend: ", error)
+          );
       }
 
       function updateTimerDisplay() {
@@ -201,7 +211,7 @@
           time = 1500;
         }
         updateTimerDisplay();
-      })
+      });
 
       function changeTimer(value) {
         stopTimer();
@@ -301,6 +311,16 @@
         dateDisplayedElement.textContent = displayed;
       });
       
+      document.addEventListener("DOMContentLoaded", () => {
+        const dateDisplayedElement = document.getElementById("dateDisplayed");
+        const today = new Date();
+        const displayed = today.toLocaleString("default", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
+        dateDisplayedElement.textContent = displayed;
+      });
     </script>
   </body>
 

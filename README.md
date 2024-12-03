@@ -2,7 +2,15 @@
 
 ## Overview
 
-This is our csc-307 project and we are hoping to make a Pomodoro website. We are using JavaScript/React for the frontend and the following tools to ensure code quality and consistency.
+Our group created an app called Focus Fruit designed to help users complete tasks effectively and efficiently. The app incorporates the Pomodoro timer technique to encourage smart time management. Our goal was to provide users with a clear to-do list, an integrated calendar, a Pomodoro guide, and a timer with customizable intervals, ensuring everyone stays organized and productive. We are using JavaScript/React for the frontend and the following tools to ensure code quality and consistency.
+
+## Protoype
+
+https://www.figma.com/design/yux1Kg4oaSBdY5i6waEIrR/Pomodoro-Project?node-id=0-1
+
+## Class Diagram
+
+https://app.diagrams.net/#G1R0WKSNCxmy4kWNRS6iReNKolIaDjoVE2#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D
 
 ## Tech Stack
 
