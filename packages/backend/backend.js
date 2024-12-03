@@ -50,7 +50,10 @@ app.post("/users", authenticateUser, (req, res) => { // 201
   const userId = idGen(6);
   const userToAdd = {id: userId, username: req.body.username, email: req.body.email, password: req.body.password};
   user_services.addUser(userToAdd).then((result) => 
-    res.status(201).send(result));
+    res.status(201).send(result))
+  .catch((error) => {
+    res.status(400).send("Password or Email Invalid")
+  });
 });
 
 app.patch('/users/:id', authenticateUser, (req, res) => {
