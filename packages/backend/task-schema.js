@@ -1,12 +1,11 @@
+//task_schema
 import mongoose from "mongoose";
 
 const TaskSchema = new mongoose.Schema(
     {
-      Task: {
-        type: String,
-        required: true,
-        trim: true,
-      }
+      userId: { type: String, required: true },
+      task: { type: String, required: true },
+      completed: { type: Boolean, default: false }
     },
     { collection: "Tasks" }
 );

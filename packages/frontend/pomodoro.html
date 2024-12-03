@@ -232,18 +232,21 @@
           tasks.push(task);
           taskInput.value = "";
           renderTasks();
+          saveTasksToLocalStorage()
         }
       }
 
       function toggleTaskCompletion(index) {
         tasks[index].completed = !tasks[index].completed;
         renderTasks();
+        saveTasksToLocalStorage()
       }
 
       function removeTask(index) {
         if (tasks[index].completed) {
           tasks.splice(index, 1);
           renderTasks();
+          saveTasksToLocalStorage()
         }
       }
 
@@ -274,19 +277,30 @@
         });
       }
 
-      document.addEventListener('DOMContentLoaded', () => {
-      const dateDisplayedElement = document.getElementById("dateDisplayed");
-      const today = new Date();
-      const displayed = today.toLocaleString('default',
-        { month: 'long',
-          day: 'numeric',
-          year: 'numeric'
-        }
-      )
-      dateDisplayedElement.textContent = displayed;
-    })
-      
+      function saveTasksToLocalStorage() {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }
 
+      document.addEventListener('DOMContentLoaded', () => {
+        const savedTasks = localStorage.getItem("tasks");
+
+        if (savedTasks) {
+          tasks.push(...JSON.parse(savedTasks));
+          renderTasks();
+          saveTasksToLocalStorage()
+        }
+
+        const dateDisplayedElement = document.getElementById("dateDisplayed");
+        const today = new Date();
+        const displayed = today.toLocaleString('default',
+          { month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+          }
+        )
+        dateDisplayedElement.textContent = displayed;
+      });
+      
     </script>
   </body>
 
