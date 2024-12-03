@@ -16,7 +16,7 @@ function getTask(userId, ) {
   } else if (task) {
     promise = findTaskbyUser(username);
 }
-
+}
 
 export default {
   addTask,

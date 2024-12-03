@@ -1,154 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <title>FocusFruitPomodoro</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
-</head>
-<body class="pomodoro-page">
+  </head>
+  <body class="pomodoro-page">
     <nav class="navbar">
-        <a href="index.html" class="logo-link">
-            <div class="logo-container">
-                <img src="focus-fruit-logo.png" alt="Focus-Fruit Logo" class="logo-image" />
-                <span class="logo-text">FocusFruit</span>
-            </div>
-        </a>
-        <ul class="nav-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="calendar.html">Calendar</a></li>
-            <li><a href="profile.html"><img src="user-logo.png" alt="Profile" class="profile-icon"></a></li>
-        </ul>
+      <a href="index.html" class="logo-link">
+        <div class="logo-container">
+          <img
+            src="focus-fruit-logo.png"
+            alt="Focus-Fruit Logo"
+            class="logo-image"
+          />
+          <span class="logo-text">FocusFruit</span>
+        </div>
+      </a>
+      <ul class="nav-list">
+        <li><a href="pomodoro.html">Home</a></li>
+        <li><a href="calendar.html">Calendar</a></li>
+        <li>
+          <a href="profile.html"
+            ><img src="user-logo.png" alt="Profile" class="profile-icon"
+          /></a>
+        </li>
+      </ul>
     </nav>
 
     <main class="main-content">
-        <div class="todolist-container">
-            <h2 class="todolist-header">To-Do List</h2>
-            <div class="add-task-container">
-                <input type="text" id="taskInput" placeholder="Add a new task" />
-                <button class="add-task-button" onclick="addTask()">Add</button>
-            </div>
-            <ul id="taskList" class="todo-items"></ul>
+      <div class="todolist-container">
+        <h2 class="todolist-header">To-Do List</h2>
+        <div class="add-task-container">
+          <input type="text" id="taskInput" placeholder="Add a new task" />
+          <button class="add-task-button" onclick="addTask()">Add</button>
         </div>
+        <ul id="taskList" class="todo-items"></ul>
+      </div>
 
-        <div class="timer-guide-column">
-            <div class="timer-container">
-                <h3 class="timer-header">Timer</h3>
-                <div id="timerDisplay" class="timer-display">25:00</div>
-                <div class="timer-controls">
-                    <button onclick="startTimer()">Start</button>
-                    <button onclick="stopTimer()">Stop</button>
-                    <button onclick="resetTimer()">Reset</button>
-                </div>
-            </div>
-
-            <div class="guide-container">
-                <h3 class="guide-header">Pomodoro Guide</h3>
-                <p>→ Set a timer for 25 minutes to focus on a task.</p>
-                <p>→ When the timer ends, take a 5-minute break.</p>
-                <p>→ Repeat this cycle 3 more times.</p>
-                <p>→ After completing 4 cycles, take a longer 30-minute break.</p>
-                <p>OR MAKE YOUR OWN RULES!!</p>
-            </div>
+      <div class="timer-guide-column">
+        <div class="day-container">
+          <h2 id="dateDisplayed" class="display-day"></h2>
         </div>
+        <div class="timer-container">
+          <form>
+            <select
+              id="timerOptions"
+              class="timer-dropdown"
+              onchange="changeTimer(this.value)"
+            >
+              <option value="25">Pomodoro</option>
+              <option value="5">Short Break</option>
+              <option value="30">Long Break</option>
+              <option value="custom">Custom</option>
+            </select>
+          </form>
+          <div id="timerDisplay" class="timer-display">25:00</div>
+          <div class="timer-controls">
+            <button id="startButton" onclick="startTimer()">Start</button>
+            <button onclick="stopTimer()">Stop</button>
+            <button onclick="resetTimer()">Reset</button>
+          </div>
+        </div>
+        <div class="guide-container">
+          <h3 class="guide-header">Pomodoro Guide</h3>
+          <p>→ Set a timer for 25 minutes to focus on a task.</p>
+          <p>→ When the timer ends, take a 5-minute break.</p>
+          <p>→ Repeat this cycle 3 more times.</p>
+          <p>→ After completing 4 cycles, take a longer 30-minute break.</p>
+          <p>OR MAKE YOUR OWN RULES!!</p>
+        </div>
+      </div>
     </main>
 
-<script>
-    
-    // Timer functionality
-    let time = 1500;
-    let isRunning = false;
-    let timerInterval;
+    <script>
+      //frontend functionality
+      let time = 1500;
+      let isRunning = false;
+      let timerInterval;
 
-    function startTimer() {
-      if (!isRunning) {
-        isRunning = true;
-        timerInterval = setInterval(() => {
-          if (time > 0) {
-            time--;
-            updateTimerDisplay();
-          } else {
-            stopTimer();
-            alert("Time's up!");
-          }
-        }, 1000);
+      function startTimer() {
+        console.log("Start button clicked");
+        if (!isRunning) {
+          isRunning = true;
+
+          fetch("http://localhost:3000/start", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId: "user123", timerId: "pomodoro" }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                console.log(data.message);
+                timerInterval = setInterval(() => {
+                  if (time > 0) {
+                    time--;
+                    updateTimerDisplay();
+                  } else {
+                    stopTimer();
+                    alert("Time's up!");
+                  }
+                }, 1000);
+              } else {
+                console.error("Error: ", data.message);
+              }
+            })
+            .catch((error) =>
+              console.error("Error communicating with backend: ", error)
+            );
+        }
       }
-    }
 
-    function stopTimer() {
-      isRunning = false;
-      clearInterval(timerInterval);
-    }
+      function stopTimer() {
+        if (isRunning) {
+          isRunning = false;
+          clearInterval(timerInterval);
+        }
 
-    function resetTimer() {
-      stopTimer();
-      time = 1500;
-      updateTimerDisplay();
-    }
-
-    function updateTimerDisplay() {
-      const minutes = String(Math.floor(time / 60)).padStart(2, '0');
-      const seconds = String(time % 60).padStart(2, '0');
-      document.getElementById("timerDisplay").textContent = `${minutes}:${seconds}`;
-    }
-
-    // To-Do List functionality
-    const tasks = [];
-
-    function addTask() {
-      const taskInput = document.getElementById("taskInput");
-      const taskText = taskInput.value.trim();
-
-      if (taskText !== "") {
-        const task = { text: taskText, completed: false };
-        tasks.push(task);
-        taskInput.value = "";
-        renderTasks();
+        fetch("http://localhost:3000/stop", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: "user123", timerId: "pomodoro" }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              console.log(data.message);
+              console.log(
+                `Total elapsed time: ${data.totalElapsedTime} seconds`
+              );
+            } else {
+              console.error("Error stopping timer: ", data.message);
+            }
+          })
+          .catch((error) =>
+            console.error("Error communicating with backend: ", error)
+          );
       }
-    }
 
-    function toggleTaskCompletion(index) {
-      tasks[index].completed = !tasks[index].completed;
-      renderTasks();
-    }
-
-    function removeTask(index) {
-      if (tasks[index].completed) {
-        tasks.splice(index, 1);
-        renderTasks();
+      function fetchElapsedTime() {
+        fetch(`http://localhost:3000/total/${userId}/${timerId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              console.log(
+                `Total elapsed time: ${data.totalElapsedTime} seconds`
+              );
+              const elapsedSeconds = Math.floor(
+                data.totalElapsedTime * 60 * 60
+              );
+              if (elapsedSeconds >= 1500 || elapsedSeconds === 0) {
+                time = 1500; // Default to 25 minutes
+              } else {
+                time = Math.max(1500 - elapsedSeconds, 0);
+              }
+              updateTimerDisplay();
+            } else {
+              console.error("Error fetching elapsed time:", data.message);
+            }
+          })
+          .catch((error) =>
+            console.error("Error communicating with backend: ", error)
+          );
       }
-    }
 
-    function renderTasks() {
-      const taskList = document.getElementById("taskList");
-      taskList.innerHTML = "";
-      tasks.forEach((task, index) => {
-        const taskItem = document.createElement("p");
-        taskItem.className = `todo-item ${task.completed ? 'completed' : ''}`;
-        
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = task.completed;
-        checkbox.onclick = () => toggleTaskCompletion(index);
+      function resetTimer() {
+        stopTimer();
+        time = 1500;
+        updateTimerDisplay();
+      }
 
-        const taskText = document.createElement("span");
-        taskText.className = "task-text";
-        taskText.textContent = task.text;
+      function resetTotalElapsedTime() {
+        fetch("http://localhost:3000/resetElapsed", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: "user123", timerId: "pomodoro" }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              console.log(data.message);
+              time = 1500;
+              updateTimerDisplay();
+            } else {
+              console.error("Error resetting elapsed time: ", data.message);
+            }
+          })
+          .catch((error) =>
+            console.error("Error communicating with backend: ", error)
+          );
+      }
 
-        const removeButton = document.createElement("button");
-        removeButton.className = "remove-button";
-        removeButton.textContent = "Remove";
-        removeButton.onclick = () => removeTask(index);
+      function updateTimerDisplay() {
+        const minutes = String(Math.floor(time / 60)).padStart(2, "0");
+        const seconds = String(time % 60).padStart(2, "0");
+        document.getElementById(
+          "timerDisplay"
+        ).textContent = `${minutes}:${seconds}`;
 
-        taskItem.appendChild(checkbox);
-        taskItem.appendChild(taskText);
-        taskItem.appendChild(removeButton);
-        
-        taskList.appendChild(taskItem);
+        localStorage.setItem("remainingTime", time);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedTime = localStorage.getItem("remainingTime");
+        if (savedTime) {
+          time = parseInt(savedTime, 10);
+        } else {
+          time = 1500;
+        }
+        updateTimerDisplay();
       });
-    }
 
-</script>
+      function changeTimer(value) {
+        stopTimer();
+        if (value == "custom") {
+          const customMinutes = prompt("Enter custom minutes: ");
 
-</body>
+          if (!isNaN(customMinutes) && customMinutes > 0) {
+            time = customMinutes * 60;
+          } else {
+            alert("Enter a valid number.");
+            return;
+          }
+        } else {
+          time = value * 60;
+        }
+        updateTimerDisplay();
+      }
+
+      // To-Do List functionality
+      const tasks = [];
+
+      function addTask() {
+        const taskInput = document.getElementById("taskInput");
+        const taskText = taskInput.value.trim();
+
+        if (taskText !== "") {
+          const task = { text: taskText, completed: false };
+          tasks.push(task);
+          taskInput.value = "";
+          renderTasks();
+        }
+      }
+
+      function toggleTaskCompletion(index) {
+        tasks[index].completed = !tasks[index].completed;
+        renderTasks();
+      }
+
+      function removeTask(index) {
+        if (tasks[index].completed) {
+          tasks.splice(index, 1);
+          renderTasks();
+        }
+      }
+
+      function renderTasks() {
+        const taskList = document.getElementById("taskList");
+        taskList.innerHTML = "";
+        tasks.forEach((task, index) => {
+          const taskItem = document.createElement("p");
+          taskItem.className = `todo-item ${task.completed ? "completed" : ""}`;
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = task.completed;
+          checkbox.onclick = () => toggleTaskCompletion(index);
+
+          const taskText = document.createElement("span");
+          taskText.className = "task-text";
+          taskText.textContent = task.text;
+
+          const removeButton = document.createElement("button");
+          removeButton.className = "remove-button";
+          removeButton.textContent = "Remove";
+          removeButton.onclick = () => removeTask(index);
+          taskItem.appendChild(checkbox);
+          taskItem.appendChild(taskText);
+          taskItem.appendChild(removeButton);
+          taskList.appendChild(taskItem);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const dateDisplayedElement = document.getElementById("dateDisplayed");
+        const today = new Date();
+        const displayed = today.toLocaleString("default", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
+        dateDisplayedElement.textContent = displayed;
+      });
+    </script>
+  </body>
+
+  <footer class="footer">
+    <p>
+      <a href="contact.html">contact us</a>
+    </p>
+  </footer>
 </html>

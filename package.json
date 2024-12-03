@@ -7,12 +7,17 @@
   ],
   "main": "index.js",
   "scripts": {
+    "lint:backend": "npm run -w packages/backend lint",
+    "lint:frontend": "npm run -w packages/frontend lint",
+    "test:backend": "npm run -w packages/backend test",
+    "test:frontend": "npm run -w packages/frontend test",
+    "dev": "npm run -w packages/frontend dev",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "dev": "npm run --workspace=packages/frontend dev"
+    "build:frontend": "npm run -w packages/frontend build"
   },
   "keywords": [],
-  "author": "Thomas, Ivy, Madison, Ivy",
+  "author": "Thomas, Ivy, Madison, Christina",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.57.1",
@@ -23,6 +28,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "mongoose": "^8.8.0",
+    "react-router-dom": "^6.28.0",
     "validator": "^13.12.0"
   }
 }

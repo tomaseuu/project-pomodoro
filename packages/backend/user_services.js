@@ -6,10 +6,12 @@ import dotenv from "dotenv";
 mongoose.set("debug", true);
 dotenv.config()
 
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).catch((error) => console.log(error));
+const mongoUri = process.env.MONGODB_URI || "mongodb://localhost:27017/pomodoro";
+
+mongoose
+  .connect(mongoUri)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Error connecting to MongoDB:", err));
 
 
 function getUsers(username) {

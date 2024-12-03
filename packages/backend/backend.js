@@ -2,24 +2,23 @@
 import express from "express";
 import cors from "cors";
 import user_services from "./user_services.js";
+import { registerUser, authenticateUser } from "./auth.js";
 
 const app = express();
-const port = 8000;
+const port = 3000;
 
 app.use(cors());
 app.use(express.json());
 
-const idGen = (length) => {
-  let result = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  let i = 0;
-  while (i < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    i += 1;
-  }
-  return result;
-}
+app.post("/signup", registerUser);
+app.post("/login", authenticateUser);
+
+app.post("/users", authenticateUser, (req, res) => {
+  const userToAdd = req.body;
+  user_services.addUser(userToAdd)
+    .then((result) => res.status(201).send(result))
+    .catch((error) => res.status(400).send("Failed to add user"));
+});
 
 app.get("/", (req, res) => {
   res.send("Hi Everyone!");
@@ -46,7 +45,8 @@ app.get("/users/:username/calendar", (req, res) => {
   // ... //
 });
 
-app.post("/users", (req, res) => { // 201
+
+app.post("/users", authenticateUser, (req, res) => { // 201
   const userId = idGen(6);
   const userToAdd = {id: userId, username: req.body.username, email: req.body.email, password: req.body.password};
   user_services.addUser(userToAdd).then((result) => 
@@ -56,14 +56,15 @@ app.post("/users", (req, res) => { // 201
   });
 });
 
-app.patch('/users/:id', (req, res) => {
+app.patch('/users/:id', authenticateUser, (req, res) => {
   const id = req.params.id; 
   const updatedUser = {id: id, username: req.body.username, email: req.body.email, password: req.body.password};
   user_services.updateUserById(id, updatedUser).then((result) =>
     res.status(200).send(result));
 });
 
-app.delete("/users/:id", (req, res) => {
+
+app.delete("/users/:id", authenticateUser, (req, res) => {
   const id = req.params.id; 
   console.log("Deleting user with ID:", id); // Debugging line
   user_services.deleteUserById(id).then((result) => {
@@ -73,6 +74,19 @@ app.delete("/users/:id", (req, res) => {
     res.status(404).send("User Not Found")
   });
 });
+
+
+const idGen = (length) => {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  let i = 0;
+  while (i < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    i += 1;
+  }
+  return result;
+}
 
 app.listen(port, () => {
   console.log(
