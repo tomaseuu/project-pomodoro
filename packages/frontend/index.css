@@ -296,7 +296,7 @@ input[type="submit"]:hover {
 }
 
 input[type="email"] {
-  width: 100%;
+  width: 750px;
   padding-right: 20px;
   font-size: 18px;
   background-color: #eaeaea;
@@ -317,8 +317,9 @@ textarea[id="message"] {
 
 .message-container {
   position: relative;
-  width: 310%;
+  width: 750px;
   margin-bottom: 20px;
+
 }
 
 .email-container {
