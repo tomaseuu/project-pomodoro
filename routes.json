@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "route": "/pomodoro.html",
+      "file": "/pomodoro.html"
+    },
+    {
+      "route": "/calendar.html",
+      "file": "/calendar.html"
+    },
+    {
+      "route": "/contact.html",
+      "file": "/contact.html"
+    },
+    {
+      "route": "/*",
+      "file": "/index.html"
+    }
+  ]
+}
