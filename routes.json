@@ -1,16 +1,20 @@
 {
   "routes": [
     {
-      "route": "/pomodoro.html",
-      "file": "/frontend/pomodoro.html"
+      "route": "/",
+      "rewrite": "/index.html"
     },
     {
-      "route": "/contact.html",
-      "file": "/frontend/contact.html"
+      "route": "/pomodoro",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/contact",
+      "rewrite": "/index.html"
     },
     {
       "route": "/*",
-      "rewrite": "/frontend/index.html"
+      "rewrite": "/index.html"
     }
   ]
 }
