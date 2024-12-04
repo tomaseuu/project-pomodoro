@@ -44,7 +44,7 @@ jobs:
       # Archive the build output for deployment
       - name: Zip artifact for deployment
         run: zip -r release.zip ./*
-        working-directory: packages/frontend/build
+        working-directory: packages/frontend/dist
 
       # Deploy to Azure Static Web Apps
       - name: Deploy to Azure Static Web Apps
@@ -56,7 +56,7 @@ jobs:
           action: "upload"
           app_location: "./packages/frontend"
           api_location: ""
-          output_location: "build"
+          output_location: "dist"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
