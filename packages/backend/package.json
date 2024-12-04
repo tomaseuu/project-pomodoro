@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "main": "backend.js",
-  "jest": {
+   "jest": {
     "testEnvironment": "node"
   },
   "scripts": {
+    "test": "jest",
     "test": "jest --coverage",
     "lint": "eslint . && prettier --check .",
     "dev": "npx nodemon backend.js"
