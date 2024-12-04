@@ -2,19 +2,19 @@
   "routes": [
     {
       "route": "/pomodoro.html",
-      "file": "/pomodoro.html"
+      "file": "/frontend/pomodoro.html"
     },
     {
       "route": "/calendar.html",
-      "file": "/calendar.html"
+      "file": "/frontend/calendar.html"
     },
     {
       "route": "/contact.html",
-      "file": "/contact.html"
+      "file": "/frontend/contact.html"
     },
     {
       "route": "/*",
-      "file": "/index.html"
+      "file": "/frontend/index.html"
     }
   ]
 }
