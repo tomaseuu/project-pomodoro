@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import User from "./user_schema.js";
 
-
 jest.setTimeout(10000);
 
 let mongoServer;
@@ -14,7 +13,6 @@ beforeAll(async () => {
     useUnifiedTopology: true,
   });
 });
-
 
 afterAll(async () => {
   await mongoose.disconnect();

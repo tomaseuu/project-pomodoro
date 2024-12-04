@@ -14,14 +14,12 @@
     "lint:frontend": "npm run -w packages/frontend lint",
     "test:backend": "npm run -w packages/backend test",
     "test:frontend": "npm run -w packages/frontend test",
-    "test": "jest",
     "test": "jest --coverage",
     "dev": "npm run -w packages/frontend dev",
     "lint": "eslint .",
     "format": "prettier --write .",
     "build:frontend": "npm run -w packages/frontend build"
   },
-
   "keywords": [],
   "author": "Thomas, Ivy, Madison, Christina",
   "license": "ISC",
