@@ -18,7 +18,8 @@
     "dev": "npm run -w packages/frontend dev",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "build:frontend": "npm run -w packages/frontend build"
+    "build:frontend": "npm run -w packages/frontend build",
+    "build": "react-scripts build" 
   },
   "keywords": [],
   "author": "Thomas, Ivy, Madison, Christina",
