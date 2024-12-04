@@ -2,7 +2,7 @@
 
 This is the **Backend**!
 
-Inlcudes:
+Includes:
 
 Timer
 User
