@@ -246,7 +246,7 @@
           do {
             customMinutes = prompt("Enter custom minutes (1–300): ");
             if (customMinutes === null) {
-              alert("You must enter a custom time. Please try again.");
+              return;
             } else if (
               isNaN(customMinutes) ||
               customMinutes <= 0 ||
