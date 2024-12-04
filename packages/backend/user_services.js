@@ -53,7 +53,6 @@ function updateUserById(id, updatedUser) {
   return userModel.findByIdAndUpdate(id, updatedUser, {new: true});
 }
 
-
 export default {
   addUser,
   getUsers,
