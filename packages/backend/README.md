@@ -2,9 +2,9 @@
 
 This is the **Backend**!
 
-Inlcudes:
+Includes:
 
-Timer
-User
+Timer,
+User, and
 Calendar
 ...

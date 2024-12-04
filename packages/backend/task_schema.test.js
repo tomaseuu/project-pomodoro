@@ -29,38 +29,56 @@ describe("Task Schema", () => {
     try {
       await task.validate();
     } catch (error) {
-      expect(error.errors.Task).toBeDefined();
+      expect(error.errors.task).toBeDefined();
     }
   });
 
   test("should trim whitespace in the Task field", async () => {
-    const task = new Task({ Task: "   Test Task   " });
+    const task = new Task({ 
+      userId: "validUserId",
+      task: "   Trimmed Task   ", 
+    });
+    await task.save();
     const savedTask = await task.save();
-    expect(savedTask.Task).toBe("Test Task");
+    expect(savedTask.task).toBe("Trimmed Task");
   });
 
   test("should save a valid Task", async () => {
-    const validTask = new Task({ Task: "Complete Homework" });
-    const savedTask = await validTask.save();
-    expect(savedTask.Task).toBe("Complete Homework");
-    expect(savedTask._id).toBeDefined(); // Ensure the task is saved with an ID
+    const task = new Task({
+      userId: "validUserId",
+      task: "Sample Task",
+      completed: false,
+    });
+    const savedTask = await task.save();
+    expect(savedTask).toBeDefined();
+    expect(savedTask.task).toBe("Sample Task");
+    expect(savedTask.userId).toBe("validUserId");
   });
+  
 
   test("should fetch a saved Task", async () => {
-    const validTask = new Task({ Task: "Read a book" });
-    const savedTask = await validTask.save();
-
-    const fetchedTask = await Task.findById(savedTask._id);
-    expect(fetchedTask.Task).toBe("Read a book");
+    const task = new Task({
+      userId: "validUserId",
+      task: "Fetch Me",
+    });
+    await task.save();
+  
+    const foundTask = await Task.findOne({ task: "Fetch Me" });
+    expect(foundTask).toBeDefined();
+    expect(foundTask.task).toBe("Fetch Me");
   });
+  
 
   test("should delete a Task", async () => {
-    const validTask = new Task({ Task: "Task to delete" });
-    const savedTask = await validTask.save();
-
-    await Task.findByIdAndDelete(savedTask._id);
-
-    const deletedTask = await Task.findById(savedTask._id);
+    const task = new Task({
+      userId: "validUserId",
+      task: "Delete Me",
+    });
+    await task.save();
+  
+    await Task.deleteOne({ task: "Delete Me" });
+    const deletedTask = await Task.findOne({ task: "Delete Me" });
     expect(deletedTask).toBeNull();
   });
+  
 });

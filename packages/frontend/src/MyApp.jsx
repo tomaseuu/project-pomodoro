@@ -7,7 +7,7 @@ import Form from "./Form";
 import Login from "./Login";
 import Pomodoro from "./Pomodoro"; 
 
-const API_PREFIX = "http://localhost:8000";
+const API_PREFIX = "https://ashy-coast-0b352fa1e.5.azurestaticapps.net";
 
 function MyApp() {
   const [characters, setCharacters] = useState([]);
@@ -52,7 +52,7 @@ function MyApp() {
   }
 
   function postUser(person) {
-    const promise = fetch("Http://localhost:8000/users", {
+    const promise = fetch("https://ashy-coast-0b352fa1e.5.azurestaticapps.net", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
