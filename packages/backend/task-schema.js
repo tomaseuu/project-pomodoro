@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 const TaskSchema = new mongoose.Schema(
     {
       userId: { type: String, required: true },
-      task: { type: String, required: true },
+      task: { type: String, required: true, trim: true },
       completed: { type: Boolean, default: false }
     },
     { collection: "Tasks" }
