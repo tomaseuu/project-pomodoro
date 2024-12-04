@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const { MongoMemoryServer } = require("mongodb-memory-server");
-const User = require("./user_schema");
+import mongoose from "mongoose";
+import { MongoMemoryServer } from "mongodb-memory-server";
+import User from "./user_schema.js";
 
 
 jest.setTimeout(10000);
@@ -65,7 +65,7 @@ describe("User Schema", () => {
         password: "AnotherP@ssw0rd1!",
       });
     } catch (error) {
-      expect(error.code).toBe(11000); // MongoDB duplicate key error
+      expect(error.code).toBe(11000); 
     }
   });
 

@@ -3,19 +3,18 @@
   "version": "1.0.0",
   "type": "module",
   "main": "backend.js",
-   "jest": {
-    "testEnvironment": "node"
-  },
   "scripts": {
-    "test": "jest",
     "test": "jest --coverage",
     "lint": "eslint . && prettier --check .",
     "dev": "npx nodemon backend.js"
   },
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Backend API for the project, using Express, MongoDB, and ES Modules",
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
     "mongodb-memory-server": "^10.1.2",
     "nodemon": "^3.1.7"

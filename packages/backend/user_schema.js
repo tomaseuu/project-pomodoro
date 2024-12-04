@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import validate from 'validator';
+import validate from "validator";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -30,5 +30,4 @@ const UserSchema = new mongoose.Schema(
 
 
 const User = mongoose.model("User", UserSchema);
-
 export default User;

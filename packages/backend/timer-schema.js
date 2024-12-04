@@ -1,4 +1,3 @@
-//timer-schema.js
 import mongoose from "mongoose";
 
 const timerSchema = new mongoose.Schema ({
@@ -10,6 +9,6 @@ const timerSchema = new mongoose.Schema ({
 
     });
 
-const Timer = mongoose.model('Timer', timerSchema);
+const Timer = mongoose.model("Timer", timerSchema);
 
 export default Timer;

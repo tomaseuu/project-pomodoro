@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const { MongoMemoryServer } = require("mongodb-memory-server");
-const Timer = require("./timer-schema"); 
+import mongoose from "mongoose";
+import { MongoMemoryServer } from "mongodb-memory-server";
+import Timer from "./timer-schema.js";
 
 let mongoServer;
 
