@@ -4,7 +4,7 @@ This is the **Backend**!
 
 Includes:
 
-Timer
-User
+Timer,
+User, and
 Calendar
 ...
