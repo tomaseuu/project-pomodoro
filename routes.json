@@ -5,16 +5,12 @@
       "file": "/frontend/pomodoro.html"
     },
     {
-      "route": "/calendar.html",
-      "file": "/frontend/calendar.html"
-    },
-    {
       "route": "/contact.html",
       "file": "/frontend/contact.html"
     },
     {
       "route": "/*",
-      "file": "/frontend/index.html"
+      "rewrite": "/frontend/index.html"
     }
   ]
 }
