@@ -5,8 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Table from "./Table";
 import Form from "./Form";
 import Login from "./Login";
-import Contact from "./Contact";
-import Pomodoro from "./Pomodoro";
+import Pomodoro from "./Pomodoro"; 
 
 const API_PREFIX = "http://localhost:8000";
 
@@ -140,11 +139,11 @@ function MyApp() {
           path="/signup"
           element={<Login handleSubmit={signupUser} buttonLabel="Sign Up" />}
         />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/pomodoro" element={<Pomodoro />} />
+        <Route path="/pomodoro" element={<Pomodoro />} /> 
       </Routes>
     </div>
   );
 }
 
 export default MyApp;
+
