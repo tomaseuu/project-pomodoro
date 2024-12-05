@@ -5,7 +5,7 @@
       "rewrite": "/index.html"
     },
     {
-      "route": "/pomodoro.html",
+      "route": "/Pomodoro.jsx",
       "rewrite": "/index.html"
     },
     {
@@ -15,10 +15,6 @@
     {
       "route": "/*",
       "rewrite": "/index.html"
-    },
-    {
-      "route": "/pomodoro.html",
-      "rewrite": "/login"
     }
   ]
 }

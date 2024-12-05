@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Pomodoro from "./Pomodoro";
 
-const API_PREFIX = "https://localhost:8000";
+const API_PREFIX = "http://localhost:8000";
 
 function MyApp() {
   const [characters, setCharacters] = useState([]);
@@ -125,7 +125,7 @@ function MyApp() {
           path="/signup"
           element={<Login handleSubmit={signupUser} buttonLabel="Sign Up" />}
         />
-        <Route path="/pomodoro.html" element={<Pomodoro />} />
+        <Route path="/Pomodoro.jsx" element={<Pomodoro />} />
       </Routes>
     </div>
   );

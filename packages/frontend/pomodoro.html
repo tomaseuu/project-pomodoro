@@ -91,7 +91,7 @@
         if (!isRunning) {
           isRunning = true;
 
-          fetch("https://localhost:3000/start", {
+          fetch("http://localhost:3000/start", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userId: "user123", timerId: "pomodoro" }),
