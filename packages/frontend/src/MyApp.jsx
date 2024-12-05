@@ -125,7 +125,7 @@ function MyApp() {
           path="/signup"
           element={<Login handleSubmit={signupUser} buttonLabel="Sign Up" />}
         />
-        <Route path="/pomodoro" element={<Pomodoro />} />
+        <Route path="/pomodoro.html" element={<Pomodoro />} />
       </Routes>
     </div>
   );
