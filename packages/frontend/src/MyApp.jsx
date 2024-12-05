@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Pomodoro from "./Pomodoro";
 
-const API_PREFIX = "http://localhost:8000";
+const API_PREFIX = "https://localhost:8000";
 
 function MyApp() {
   const [characters, setCharacters] = useState([]);
@@ -50,7 +50,7 @@ function MyApp() {
   }
 
   function postUser(person) {
-    const promise = fetch("Http://localhost:8000/users", {
+    const promise = fetch("https://localhost:8000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
