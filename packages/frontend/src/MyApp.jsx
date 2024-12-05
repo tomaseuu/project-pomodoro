@@ -50,7 +50,7 @@ function MyApp() {
   }
 
   function postUser(person) {
-    const promise = fetch("https://localhost:8000/users", {
+    const promise = fetch("http://localhost:8000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -125,7 +125,7 @@ function MyApp() {
           path="/signup"
           element={<Login handleSubmit={signupUser} buttonLabel="Sign Up" />}
         />
-        <Route path="/Pomodoro.jsx" element={<Pomodoro />} />
+        <Route path="/pomodoro" element={<Pomodoro />} />
       </Routes>
     </div>
   );
