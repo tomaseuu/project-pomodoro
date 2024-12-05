@@ -5,9 +5,9 @@ import cors from 'cors';
 import { addTask, getTasks, deleteTaskById, updateTaskById, toggleTaskCompletion } from './task-services.js';
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
-mongoose.connect("mongodb://localhost:27017/pomodoro")
+mongoose.connect("mongodb+srv://<username>:<password>@<cluster-url>/<database>?retryWrites=true&w=majority")
     .then(() => {
         console.log("Connected to MongoDB");
     })
@@ -15,7 +15,7 @@ mongoose.connect("mongodb://localhost:27017/pomodoro")
         console.error("Error connecting to MongoDB:", error);
     });
 
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: 'https://ashy-coast-0b352fa1e.5.azurestaticapps.net' }));
 app.use(express.json());
 
 
