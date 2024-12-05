@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "./Login";
-import Pomodoro from "./Pomodoro"; 
+import Pomodoro from "./Pomodoro";
 
 const API_PREFIX = "http://localhost:8000";
 
@@ -120,28 +120,15 @@ function MyApp() {
     <div className="container">
       {message && <p>{message}</p>}
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Table
-                characterData={characters}
-                removeCharacter={removeOneCharacter}
-              />
-              <Form handleSubmit={updateList} />
-            </>
-          }
-        />
         <Route path="/login" element={<Login handleSubmit={loginUser} />} />
         <Route
           path="/signup"
           element={<Login handleSubmit={signupUser} buttonLabel="Sign Up" />}
         />
-        <Route path="/pomodoro" element={<Pomodoro />} /> 
+        <Route path="/pomodoro" element={<Pomodoro />} />
       </Routes>
     </div>
   );
 }
 
 export default MyApp;
-
