@@ -2,12 +2,10 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import Table from "./Table";
-import Form from "./Form";
 import Login from "./Login";
 import Pomodoro from "./Pomodoro"; 
 
-const API_PREFIX = "https://ashy-coast-0b352fa1e.5.azurestaticapps.net";
+const API_PREFIX = "http://localhost:8000";
 
 function MyApp() {
   const [characters, setCharacters] = useState([]);
@@ -52,7 +50,7 @@ function MyApp() {
   }
 
   function postUser(person) {
-    const promise = fetch("https://ashy-coast-0b352fa1e.5.azurestaticapps.net", {
+    const promise = fetch("Http://localhost:8000/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

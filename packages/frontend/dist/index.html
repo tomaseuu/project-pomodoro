@@ -4,8 +4,8 @@
     <title>User</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" crossorigin src="/assets/index-rvnxiE5W.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BMCDHEPG.css">
+    <script type="module" crossorigin src="/assets/index-AsfQtSrd.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BwoJ6QPU.css">
   </head>
   <body class="user-page">
     <nav class="navbar">
@@ -26,41 +26,46 @@
 
     <main class="user-container">
       <div class="user-wrapper">
+        <!-- Login Form -->
         <div class="user-left">
           <h1>Login</h1>
           <p>For Existing Members</p>
-          <form id="user-form" action="pomodoro.html" method="POST">
-            <label for="name">username</label>
-            <input type="text" id="name" name="name" required />
+          <form id="login-form" action="pomodoro.html" method="POST">
+            <label for="login-name">Username</label>
+            <input type="text" id="login-name" name="name" required />
 
-            <label for="password">password</label>
-            <input type="password" id="password" name="password" required />
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="password" required />
 
             <input type="submit" value="Submit" />
           </form>
         </div>
 
+        <!-- Signup Form -->
         <div class="user-right">
           <h1>Sign Up</h1>
           <p>For New Members</p>
-          <form id="user-form">
-            <label for="name">username</label>
-            <input type="text" id="name" name="name" required />
+          <form id="signup-form" action="signup-handler.html" method="POST">
+            <label for="signup-name">Username</label>
+            <input type="text" id="signup-name" name="name" required />
 
-            <label for="password">password</label>
-            <input type="password" id="password" name="password" required />
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" name="password" required />
 
             <input type="submit" value="Submit" />
           </form>
         </div>
       </div>
+
+      <!-- React Root -->
+      <div id="root"></div>
     </main>
 
     <div class="three-dots">...</div>
 
     <footer class="footer">
       <p>
-        <a href="contact.html">contact us</a>
+        <a href="contact.html">Contact Us</a>
       </p>
     </footer>
   </body>
