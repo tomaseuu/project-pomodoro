@@ -1,16 +1,8 @@
 {
-    "routes": [
-      {
-        "route": "/",
-        "serve": "/index.html"
-      },
-      {
-        "route": "/pomodoro",
-        "serve": "/index.html"
-      },
-      {
-        "route": "/*",
-        "serve": "/index.html"
-      }
-    ]
-  }
+  "routes": [
+    {
+      "route": "/*",
+      "serve": "/index.html"
+    }
+  ]
+}

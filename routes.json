@@ -5,15 +5,19 @@
       "rewrite": "/index.html"
     },
     {
-      "route": "/Pomodoro.jsx",
+      "route": "/pomodoro",
       "rewrite": "/index.html"
     },
     {
-      "route": "/contact.html",
+      "route": "/calendar",
       "rewrite": "/index.html"
     },
     {
-      "route": "/*",
+      "route": "/profile",
+      "rewrite": "/index.html"
+    },
+    {
+      "route": "/contact",
       "rewrite": "/index.html"
     }
   ]

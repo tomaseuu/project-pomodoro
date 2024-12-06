@@ -1,4 +1,3 @@
-//timer-services.js
 import timerModel from "./timer-schema.js"
 
 const getCurrentTimestamp = () => new Date().getTime();
@@ -44,7 +43,7 @@ const stopTimer = async (userId, timerId) => {
             return {
                 success: true,
                 message: `Timer ${timerId} stopped for user ${userId}`,
-                totalElapsedTime: (timer.totalElapsedTime / (1000)).toFixed(2) // return seconds
+                totalElapsedTime: (timer.totalElapsedTime / (1000)).toFixed(2) 
             };
         } else {
             return { success: false, message: `No active timer ${timerId} for user ${userId}`};
@@ -63,7 +62,7 @@ const getTotalElapsedTime = async (userId, timerId) => {
         if (timer) { 
             return {
                 success: true,
-                totalElapsedTime: (timer.totalElapsedTime / (1000)).toFixed(2) //return seconds
+                totalElapsedTime: (timer.totalElapsedTime / (1000)).toFixed(2) 
             };
         } else {
             return { success: false, message: `No timer ${timerId} found for user ${userId}` };

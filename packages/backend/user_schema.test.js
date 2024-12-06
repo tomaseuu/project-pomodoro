@@ -20,12 +20,12 @@ afterAll(async () => {
 });
 
 afterEach(async () => {
-  await User.deleteMany(); // Clean up the database after each test
+  await User.deleteMany(); 
 });
 
 describe("User Schema", () => {
   test("should fail validation if required fields are missing", async () => {
-    const user = new User({}); // Missing all required fields
+    const user = new User({}); 
 
     try {
       await user.validate();

@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 import userModel from "./user_schema.js";
 import dotenv from "dotenv";
@@ -41,10 +40,10 @@ function addUser(user) {
 function deleteUserById(id) {
   return userModel.findByIdAndDelete(id)
   .then((result) => {
-   console.log("User deleted:", result); // Log the result
+   console.log("User deleted:", result); 
    return result;
    }).catch((error) => {
-   console.log("Error deleting user:", error); // Log the error
+   console.log("Error deleting user:", error); 
    throw error;
  });
 }

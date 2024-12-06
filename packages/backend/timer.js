@@ -1,4 +1,3 @@
-// timer.js
 import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
@@ -23,7 +22,6 @@ app.get('/', (req, res) => {
     res.send('Timer API is running. Use /start, /stop, and /total/:userId/:timerId endpoints.');
 });
 
-// Route to start a new timer
 app.post('/start', async (req, res) => {
 
     console.log("POST /start called with body: ", req.body); //debug
@@ -43,7 +41,6 @@ app.post('/start', async (req, res) => {
     }
 });
 
-// Route to stop a timer and update total elapsed time
 app.post('/stop', async (req, res) => {
     const { userId, timerId } = req.body;
     if (!userId || !timerId) {
@@ -58,7 +55,6 @@ app.post('/stop', async (req, res) => {
     }
 });
 
-// Route to get total elapsed time for a user's timer
 app.get('/total/:userId/:timerId', async (req, res) => {
     const { userId, timerId } = req.params;
     const result = await getTotalElapsedTime(userId, timerId);

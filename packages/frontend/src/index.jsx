@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOMClient from "react-dom/client";
-import MyApp from "./MyApp"; // Main React component
+import MyApp from "./MyApp"; 
 import "./index.css";
 
 const rootElement = document.getElementById("root");
@@ -14,3 +14,5 @@ if (!rootElement) {
     </React.StrictMode>
   );
 }
+
+

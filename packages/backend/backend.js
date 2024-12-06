@@ -1,4 +1,3 @@
-// backend.js
 import express from "express";
 import cors from "cors";
 import user_services from "./user_services.js";
@@ -9,6 +8,10 @@ const port = 3000;
 
 app.use(cors());
 app.use(express.json());
+
+app.use((req, res, next) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
 
 app.post("/signup", registerUser);
 app.post("/login", authenticateUser);
@@ -45,8 +48,7 @@ app.get("/users/:username/calendar", (req, res) => {
   // ... //
 });
 
-
-app.post("/users", authenticateUser, (req, res) => { // 201
+app.post("/users", authenticateUser, (req, res) => { 
   const userId = idGen(6);
   const userToAdd = {id: userId, username: req.body.username, email: req.body.email, password: req.body.password};
   user_services.addUser(userToAdd).then((result) => 
@@ -63,10 +65,9 @@ app.patch('/users/:id', authenticateUser, (req, res) => {
     res.status(200).send(result));
 });
 
-
 app.delete("/users/:id", authenticateUser, (req, res) => {
   const id = req.params.id; 
-  console.log("Deleting user with ID:", id); // Debugging line
+  console.log("Deleting user with ID:", id); 
   user_services.deleteUserById(id).then((result) => {
       res.status(204).send(result);
   })
@@ -74,7 +75,6 @@ app.delete("/users/:id", authenticateUser, (req, res) => {
     res.status(404).send("User Not Found")
   });
 });
-
 
 const idGen = (length) => {
   let result = '';

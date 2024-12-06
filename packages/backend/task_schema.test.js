@@ -4,7 +4,6 @@ import Task from "./task-schema.js";
 let mongoServer;
 
 beforeAll(async () => {
-  // Start an in-memory MongoDB server
   mongoServer = await MongoMemoryServer.create();
   await mongoose.connect(mongoServer.getUri(), {
     useNewUrlParser: true,
@@ -13,13 +12,11 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  // Disconnect and stop the in-memory server
   await mongoose.disconnect();
   await mongoServer.stop();
 });
 
 afterEach(async () => {
-  // Clean up the Tasks collection after each test
   await Task.deleteMany();
 });
 

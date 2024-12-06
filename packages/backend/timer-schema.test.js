@@ -5,7 +5,6 @@ import Timer from "./timer-schema.js";
 let mongoServer;
 
 beforeAll(async () => {
-  // Start in-memory MongoDB
   mongoServer = await MongoMemoryServer.create();
   await mongoose.connect(mongoServer.getUri(), {
     useNewUrlParser: true,
@@ -14,13 +13,11 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  // Disconnect and stop in-memory server
   await mongoose.disconnect();
   await mongoServer.stop();
 });
 
 afterEach(async () => {
-  // Clean up the Timer collection after each test
   await Timer.deleteMany();
 });
 

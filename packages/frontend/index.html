@@ -1,72 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>User</title>
+    <base href="/" />
+    <title>FocusFruit</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
   </head>
-  <body class="user-page">
-    <nav class="navbar">
-      <a href="index.html" class="logo-link">
-        <div class="logo-container">
-          <img
-            src="focus-fruit-logo.png"
-            alt="Focus-Fruit Logo"
-            class="logo-image"
-          />
-          <span class="logo-text">FocusFruit</span>
-        </div>
-      </a>
-      <ul class="nav-list">
-        <li><a href="pomodoro.html">Home</a></li>
-      </ul>
-    </nav>
-
-    <main class="user-container">
-      <div class="user-wrapper">
-        <!-- Login Form -->
-        <div class="user-left">
-          <h1>Login</h1>
-          <p>For Existing Members</p>
-          <form id="login-form" action="pomodoro.html" method="POST">
-            <label for="login-name">Username</label>
-            <input type="text" id="login-name" name="name" required />
-
-            <label for="login-password">Password</label>
-            <input type="password" id="login-password" name="password" required />
-
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
-
-        <!-- Signup Form -->
-        <div class="user-right">
-          <h1>Sign Up</h1>
-          <p>For New Members</p>
-          <form id="signup-form" action="signup-handler.html" method="POST">
-            <label for="signup-name">Username</label>
-            <input type="text" id="signup-name" name="name" required />
-
-            <label for="signup-password">Password</label>
-            <input type="password" id="signup-password" name="password" required />
-
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
-      </div>
-
-      <!-- React Root -->
-      <div id="root"></div>
-    </main>
-
+  <body>
+    <div id="root"></div> <!-- React app will render here -->
     <script type="module" src="./src/main.jsx"></script>
-    <div class="three-dots">...</div>
-
-    <footer class="footer">
-      <p>
-        <a href="contact.html">Contact Us</a>
-      </p>
-    </footer>
   </body>
 </html>

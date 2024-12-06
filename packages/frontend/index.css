@@ -12,9 +12,9 @@ html {
 }
 
 .centered-container {
-  max-width: 800px; /* Adjust this width as needed */
-  margin: 0 auto; /* Center horizontally */
-  padding: 0 20px; /* Optional: add padding for spacing */
+  max-width: 800px; 
+  margin: 0 auto; 
+  padding: 0 20px; 
 }
 
 body {
@@ -27,14 +27,12 @@ body {
   font-family: monospace;
 }
 
-/* Adjust navbar, main, and footer sections */
 .user-container,
 .footer {
   width: 100%;
   max-width: 2000px;
 }
 
-/* Navigation */
 .navbar {
   position: sticky;
   top: 0;
@@ -57,7 +55,6 @@ body {
 }
 
 .navbar a {
-  /* home button */
   color: var(--cg-white);
   font-weight: normal;
   font-size: 20px;
@@ -71,6 +68,7 @@ body {
   color: var(--cg-yellow1);
   text-decoration: none;
 }
+
 .logo-container {
   display: flex;
   align-items: center;
@@ -101,7 +99,6 @@ body {
   margin-right: auto;
 }
 
-/* Main Section */
 .user-container {
   display: flex;
   justify-content: center;
@@ -122,6 +119,7 @@ body {
   max-width: 800px;
   position: relative;
 }
+
 .user-wrapper::before {
   content: "";
   position: absolute;
@@ -132,15 +130,12 @@ body {
   background-color: #c53a28;
 }
 
-/* Left and Right Sections */
-
-/* Left Section */
 .user-left {
   width: 48%;
   padding: 1px;
-  margin-left: -50px; /* Move the login section to the left */
+  margin-left: -50px; 
 }
-/* Right Section */
+
 .user-right {
   width: 48%;
   padding: 1px;
@@ -165,6 +160,7 @@ body {
   color: #ffc857;
   text-align: center;
 }
+
 .user-right h1 {
   font-weight: normal;
   font-size: 35px;
@@ -173,7 +169,6 @@ body {
   text-align: center;
 }
 
-/* Form Styling */
 form {
   display: flex;
   flex-direction: column;
@@ -197,7 +192,6 @@ input[type="password"] {
   margin-bottom: -20px;
 }
 
-/* Adjust submit button size */
 input[type="submit"] {
   background-color: #50a8c2;
   color: var(--cg-white);
@@ -225,7 +219,6 @@ input[type="submit"]:hover {
   letter-spacing: -10px;
 }
 
-/* Footer */
 .footer {
   background-color: var(--cg-orange);
   color: white;
@@ -257,7 +250,6 @@ input[type="submit"]:hover {
   text-decoration: none;
 }
 
-/* Contact Header Section */
 .contact-header {
   background-color: #255f85;
   color: var(--cg-white);
@@ -275,7 +267,6 @@ input[type="submit"]:hover {
   margin: 0;
 }
 
-/* Contact Form Styling */
 .contact-container {
   background-color: #50a8c2;
   display: flex;
@@ -332,7 +323,6 @@ textarea[id="message"] {
   font-weight: bold;
 }
 
-/* Send Button Styling */
 button.send-button {
   background-color: #255f85;
   color: #fff;
@@ -534,6 +524,7 @@ button.send-button:hover {
   height: 700px;
   margin: 50px;
 }
+
 .calendar-header {
   display: flex;
   justify-content: space-between;

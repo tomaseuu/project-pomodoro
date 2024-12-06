@@ -1,4 +1,3 @@
-//task.js
 import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
@@ -23,7 +22,6 @@ app.get('/', (req, res) => {
     res.send('Task API is running. Use /tasks for task endpoints.');
 });
 
-//Route to add a task
 app.post('/tasks', async (req, res) => {
     const { userId, task } = req.body;
 
@@ -40,7 +38,6 @@ app.post('/tasks', async (req, res) => {
     }
 });
 
-//Route to get a task
 app.get('/tasks', async (req, res) => {
     const { userId } = req.query;
 
@@ -59,7 +56,6 @@ app.get('/tasks', async (req, res) => {
     }
 });
 
-//Route to delete a task
 app.delete('/tasks/:taskId', async (req, res) => {
     const { userId } = req.query;
     const { taskId } = req.params;
@@ -77,7 +73,6 @@ app.delete('/tasks/:taskId', async (req, res) => {
     }
 });
 
-//Route to update a task
 app.patch('/tasks/:taskId', async (req, res) => {
     const { userId } = req.body;
     const { taskId } = req.params;
@@ -96,7 +91,6 @@ app.patch('/tasks/:taskId', async (req, res) => {
     }
 });
 
-//Route to toggle a task
 app.post('/tasks/:taskId/toggle', async (req, res) => {
     const { userId } = req.body;
     const { taskId } = req.params;

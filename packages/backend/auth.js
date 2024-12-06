@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 
 const creds = [];
 
-// Register a new user
 export async function registerUser(req, res) {
   const { username, pwd } = req.body;
 
@@ -29,7 +28,6 @@ export async function registerUser(req, res) {
   }
 }
 
-// Generate an access token
 function generateAccessToken(username) {
   return new Promise((resolve, reject) => {
     jwt.sign(
@@ -47,7 +45,6 @@ function generateAccessToken(username) {
   });
 }
 
-// Authenticate a user
 export function authenticateUser(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -62,12 +59,11 @@ export function authenticateUser(req, res, next) {
       console.log("JWT error:", error);
       return res.status(401).end();
     }
-    req.user = decoded; // Optionally store the decoded token in the request
+    req.user = decoded; 
     next();
   });
 }
 
-// Log in a user
 export async function loginUser(req, res) {
   const { username, pwd } = req.body;
 
