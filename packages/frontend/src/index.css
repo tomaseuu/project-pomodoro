@@ -2,6 +2,10 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  --cg-orange: rgb(233, 114, 76);
+  --cg-white: rgb(251, 251, 251);
+  --cg-yellow1: rgb(255, 226, 166);
+  --cg-yellow2: rgb(255, 226, 166);
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -52,6 +56,73 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Navigation */
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background-color: var(--cg-orange);
+  color: var(--cg-yellow2);
+  padding: 10px 30px;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 10px;
+}
+
+.navbar a {
+  /* home button */
+  color: var(--cg-white);
+  font-weight: normal;
+  font-size: 20px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  margin-right: 60px;
+  height: auto;
+}
+
+.navbar a:hover {
+  color: var(--cg-yellow1);
+  text-decoration: none;
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+  padding: 5px 15px;
+  border: 2px solid var(--cg-orange);
+  border-radius: 0px;
+  background-color: #ffc857;
+  margin-left: 30px;
+}
+
+.logo-image {
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: #e9724c !important;
+  letter-spacing: 0px;
+}
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none !important;
+  margin-right: auto;
 }
 
 @media (prefers-color-scheme: light) {
