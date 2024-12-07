@@ -10,7 +10,7 @@ https://www.figma.com/design/yux1Kg4oaSBdY5i6waEIrR/Pomodoro-Project?node-id=0-1
 
 ## Class Diagram
 
-https://app.diagrams.net/#G1R0WKSNCxmy4kWNRS6iReNKolIaDjoVE2#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D
+[https://app.diagrams.net/#G1R0WKSNCxmy4kWNRS6iReNKolIaDjoVE2#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D](https://github.com/tomaseuu/project-pomodoro/wiki/Our-UML-Diagram)
 
 ## Tech Stack
 
