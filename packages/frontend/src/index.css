@@ -66,3 +66,39 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background-color: var(--cg-orange);
+  color: var(--cg-yellow2);
+  padding: 10px 30px;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 10px;
+}
+
+.navbar a {
+  color: var(--cg-white);
+  font-weight: normal;
+  font-size: 20px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  margin-right: 60px;
+  height: auto;
+}
+
+.navbar a:hover {
+  color: var(--cg-yellow1);
+  text-decoration: none;
+}
