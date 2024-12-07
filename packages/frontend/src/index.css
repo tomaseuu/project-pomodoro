@@ -87,7 +87,7 @@ button:focus-visible {
   height: 40vh;
   background-color: #e9724c;
   border-radius: 20px;
-  width: 500px;
+  width: 430px;
   font-family: monospace;
   position: relative;
 }
@@ -140,7 +140,7 @@ button:focus-visible {
   border-radius: 15px;
   text-align: left;
   font-size: 12px;
-  width: 320px;
+  width: 250px;
   height: 270px;
 }
 

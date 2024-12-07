@@ -1,27 +1,20 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 import user_services from "./user_services.js";
 import { registerUser, authenticateUser } from "./auth.js";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({ origin: 'https://ashy-coast-0b352fa1e.5.azurestaticapps.net' }));
 app.use(express.json());
 
-app.use((req, res, next) => {
-  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-});
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "project-pomodoro/packages/frontend/dist")));
 
 app.post("/signup", registerUser);
 app.post("/login", authenticateUser);
-
-app.post("/users", authenticateUser, (req, res) => {
-  const userToAdd = req.body;
-  user_services.addUser(userToAdd)
-    .then((result) => res.status(201).send(result))
-    .catch((error) => res.status(400).send("Failed to add user"));
-});
 
 app.get("/", (req, res) => {
   res.send("Hi Everyone!");
@@ -30,66 +23,45 @@ app.get("/", (req, res) => {
 app.get("/users", (req, res) => { 
   const username = req.query.username;
   user_services.getUsers(username)
-  .then((result) => {
-    if (result) {
-      const users = {users: result}
-      res.send(users)
-    } else {
-      res.send([]);
-    }
-  })
-  .catch((error) => {
-    res.status(404).send("Users Not Found")
-  });
+    .then((result) => res.send({ users: result || [] }))
+    .catch(() => res.status(404).send("Users Not Found"));
 });
 
 app.get("/users/:username/calendar", (req, res) => { 
-  const username = req.query.username;
-  // ... //
+  res.status(501).send({ message: "Not Implemented" });
 });
 
 app.post("/users", authenticateUser, (req, res) => { 
   const userId = idGen(6);
-  const userToAdd = {id: userId, username: req.body.username, email: req.body.email, password: req.body.password};
-  user_services.addUser(userToAdd).then((result) => 
-    res.status(201).send(result))
-  .catch((error) => {
-    res.status(400).send("Password or Email Invalid")
-  });
+  const userToAdd = { id: userId, ...req.body };
+  user_services.addUser(userToAdd)
+    .then((result) => res.status(201).send(result))
+    .catch(() => res.status(400).send("Password or Email Invalid"));
 });
 
 app.patch('/users/:id', authenticateUser, (req, res) => {
   const id = req.params.id; 
-  const updatedUser = {id: id, username: req.body.username, email: req.body.email, password: req.body.password};
-  user_services.updateUserById(id, updatedUser).then((result) =>
-    res.status(200).send(result));
+  const updatedUser = { id, ...req.body };
+  user_services.updateUserById(id, updatedUser)
+    .then((result) => res.status(200).send(result));
 });
 
 app.delete("/users/:id", authenticateUser, (req, res) => {
   const id = req.params.id; 
-  console.log("Deleting user with ID:", id); 
-  user_services.deleteUserById(id).then((result) => {
-      res.status(204).send(result);
-  })
-  .catch((error) => {
-    res.status(404).send("User Not Found")
-  });
+  user_services.deleteUserById(id)
+    .then(() => res.status(204).send())
+    .catch(() => res.status(404).send("User Not Found"));
+});
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "project-pomodoro/packages/frontend/dist", "index.html"));
 });
 
 const idGen = (length) => {
-  let result = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  let i = 0;
-  while (i < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    i += 1;
-  }
-  return result;
-}
+  return Array.from({ length }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('');
+};
 
 app.listen(port, () => {
-  console.log(
-    `Example app listening at port ${port}`
-  );
+  console.log(`Example app listening at port ${port}`);
 });

@@ -35,6 +35,7 @@ const Home = () => {
               <label htmlFor="login-password">Password</label>
               <input type="password" id="login-password" name="password" required />
               <input type="submit" value="Submit" />
+              
             </form>
           </div>
 
@@ -105,6 +106,7 @@ const MyApp = () => {
         <Route path="/pomodoro" element={<PomodoroPage />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="*" element={<Home />} />
       </Routes>
     </Router>
   );

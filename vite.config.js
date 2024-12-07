@@ -8,4 +8,7 @@ export default defineConfig({
   build: {
     outDir: "dist",
   },
+
+  publicDir: "public", // Public directory
+  assetsInclude: ["**/staticwebapp.config.json"], // Ensure Vite recognizes it
 });
