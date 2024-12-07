@@ -63,11 +63,6 @@ jobs:
           npm run build
         working-directory: packages/frontend
 
-      # Ensure staticwebapp.config.json is included
-      - name: Copy staticwebapp.config.json
-        run: cp packages/frontend/staticwebapp.config.json packages/frontend/dist/
-
-
       # Deploy to Azure Static Web Apps
       - name: Deploy to Azure Static Web Apps
         id: builddeploy

@@ -10,9 +10,6 @@ const port = process.env.PORT || 3000;
 app.use(cors({ origin: 'https://ashy-coast-0b352fa1e.5.azurestaticapps.net' }));
 app.use(express.json());
 
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "project-pomodoro/packages/frontend/dist")));
-
 app.post("/signup", registerUser);
 app.post("/login", authenticateUser);
 

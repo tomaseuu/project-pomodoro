@@ -19,6 +19,7 @@
     "dev": "npm run -w packages/frontend dev",
     "lint": "eslint .",
     "format": "prettier --write .",
+    "build": "vite build && cp staticwebapp.config.json dist/",
     "build:frontend": "npm run -w packages/frontend build"
   },
   "keywords": [],
